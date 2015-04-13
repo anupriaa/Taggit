@@ -1,4 +1,4 @@
-name := """digits"""
+name := """FinalProjectICS613"""
 
 version := "1.0-SNAPSHOT"
 

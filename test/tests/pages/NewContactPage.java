@@ -7,7 +7,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.fluentlenium.core.filter.FilterConstructor.withId;
 
 /**
- * Provides testing support for the New Contact page.
+ * Provides testing support for the New DataEntry page.
  */
 public class NewContactPage extends FluentPage {
   private String url;
@@ -29,21 +29,21 @@ public class NewContactPage extends FluentPage {
 
   @Override
   public void isAt() {
-    assertThat(title()).isEqualTo("NewContact (digits)");
+    assertThat(title()).isEqualTo("Search (tagit)");
   }
 
   /**
    * Creates a new contact for testing.
    * @param firstName the first name.
    * @param lastName the last name.
-   * @param telephone the telephone number.
-   * @param telephoneType the telephone type.
+   * @param telephone the tagId number.
+   * @param telephoneType the tagId type.
    */
   public void createContact(String firstName, String lastName, String telephone, String telephoneType) {
-    fill("#firstName").with(firstName);
-    fill("#lastName").with(lastName);
-    fill("#telephone").with(telephone);
-    find("select", withId("telephoneType")).find("option", withId(telephoneType)).click();
+    fill("#entryType").with(firstName);
+    fill("#content").with(lastName);
+    fill("#tagId").with(telephone);
+    find("select", withId("tag")).find("option", withId(telephoneType)).click();
     submit("#submit");
   }
 }

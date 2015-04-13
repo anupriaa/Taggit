@@ -1,15 +1,12 @@
 package controllers;
 
-import models.ContactDB;
+import models.DataEntryDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.formdata.ContactFormData;
-import views.formdata.TelephoneTypes;
+import views.html.Search;
+import views.pagedata.EntryFormData;
 import views.html.Index;
-import views.html.NewContact;
-
-import java.util.Map;
 
 /**
  * Provides controllers for this application.
@@ -21,34 +18,38 @@ public class Application extends Controller {
    * @return The resulting home page.
    */
   public static Result index() {
-    return ok(Index.render(ContactDB.getContacts()));
+    Form<EntryFormData> formData = Form.form(EntryFormData.class);
+    return ok(Index.render(formData));
   }
 
   /**
-   * Returns newContact, a simple example of a second page to illustrate navigation.
-   * @param id The id.
-   * @return The NewContact.
+   * Returns search, a simple example of a second page to illustrate navigation.
+   * @param id The entryId.
+   * @return The Search.
    */
-  public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
-    Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
-    Map<String, Boolean> typeMap = TelephoneTypes.getTypes(data.telephoneType);
-    return ok(NewContact.render(formData, typeMap));
+  public static Result search(long id) {
+    //entryData data = (id == 0) ? new entryData() : new entryData(DataEntryDB.getContact(id));
+    EntryFormData data = new EntryFormData();
+    Form<EntryFormData> formData = Form.form(EntryFormData.class);
+    return ok(Search.render(formData));
   }
   /**
-   * Handles the http POST request for new Contact form.
-   * @return The recent data added to the new Contact form.
+   * Handles the http POST request for new DataEntry form.
+   * @return The recent data added to the new DataEntry form.
    */
-  public static Result postContact() {
-    Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
+  public static Result postEntry() {
+    System.out.print("INSIDE POST");
+    Form<EntryFormData> formData = Form.form(EntryFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
-      return badRequest(NewContact.render(formData, TelephoneTypes.getTypes()));
+      System.out.println("has error");
+      return badRequest(Index.render(formData));
     }
     else {
-      ContactFormData data = formData.get();
-      ContactDB.addContact(data);
-      System.out.printf("%s, %s, %s, %n", data.firstName, data.lastName, data.telephone);
-      return ok(NewContact.render(formData, TelephoneTypes.getTypes(data.telephoneType)));
+      EntryFormData data = formData.get();
+      ManageHTML.extractMetaData(data.url);
+      DataEntryDB.addUrl(data);
+      System.out.printf("%s, %n", data.url);
+      return ok(Index.render(formData));
     }
   }
 

@@ -3,7 +3,7 @@
   <component name="CheckStyle-IDEA-Module">
     <option name="configuration">
       <map>
-        <entry key="active-configuration" value="HTTP_URL:http://philipmjohnson.github.io/ics613s15/morea/coding-standards/checkstyle.xml:ICS-SE" />
+        <entry key="active-configuration" value="LOCAL_FILE:C:/Users/Anupriya/Desktop/spring/613/checkstyle.xml:ICS SE" />
       </map>
     </option>
   </component>
@@ -148,5 +148,6 @@
     <orderEntry type="library" scope="TEST" name="SBT: xalan:xalan:2.7.1:jar" level="project" />
     <orderEntry type="library" name="SBT: xerces:xercesImpl:2.11.0:jar" level="project" />
     <orderEntry type="library" name="SBT: xml-apis:xml-apis:1.4.01:jar" level="project" />
+    <orderEntry type="library" name="jsoup-1.8.1" level="project" />
   </component>
 </module>

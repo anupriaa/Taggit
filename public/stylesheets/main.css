@@ -1,8 +1,13 @@
 body {
 }
 .header{
-  background-image: url("../images/digits.jpg");
+  background-image: url("../images/background.jpg");
   background-position: center;
   background-size: cover;
   height: 200px;
+}
+.background{
+  background-image: url("../images/background.jpg");
+  background-position: center;
+  background-size: cover;
 }

@@ -20,7 +20,7 @@ public class IntegrationTest {
   private final int port = 3333;
 
   /**
-   * Check to see that both the index and newContact pages can be retrieved.
+   * Check to see that both the index and search pages can be retrieved.
    */
   @Test
   public void testRetrieveIndexPage() {

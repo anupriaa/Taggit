@@ -212,5 +212,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jsoup-1.8.1" level="application" />
   </component>
 </module>

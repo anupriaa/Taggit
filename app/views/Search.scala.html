@@ -2,13 +2,18 @@
 
 
   @import helper._
+  @import bootstrap3._
 
 @Main("Home") {
   <div class="container">
   @form(routes.Application.postEntry(), 'class ->"form-horizontal"){
+    <input type="hidden"
+    name="@entryForm("entryId").name"
+    id="@entryForm("entryId").id"
+    value="@entryForm("entryId").value">
       <!-- url -->
       <div class="form-group @if(entryForm("url").hasErrors) {has-error}">
-        <label class="col-sm-2 control-label">Enter Url</label>
+        <label for="last" class="col-sm-2 control-label">Last</label>
         <div class="col-sm-10">
           <input type="text" class="form-control"
             name ="@entryForm("url").name"

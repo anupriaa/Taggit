@@ -17,7 +17,7 @@ if defined var1 (
     echo.
     echo Commands:
     echo ui                 Start the Activator UI
-    echo new [name] [template-id]  Create a new project with [name] using template [template-id]
+    echo new [name] [template-entryId]  Create a new project with [name] using template [template-entryId]
     echo list-templates     Print all available template names
     echo help               Print this message
     echo.

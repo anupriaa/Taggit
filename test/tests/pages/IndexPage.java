@@ -35,8 +35,8 @@ public class IndexPage extends FluentPage {
    * Checks if contact added reflects on the home page.
    * @param firstName the first name.
    * @param lastName the last name.
-   * @param telephone the telephone number.
-   * @param telephoneType the telephone type.
+   * @param telephone the tagId number.
+   * @param telephoneType the tagId type.
    */
   public void hasContact(String firstName, String lastName, String telephone, String telephoneType) {
     assertThat(pageSource()).contains(firstName);

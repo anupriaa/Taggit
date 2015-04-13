@@ -1,17 +1,17 @@
-package views.formdata;
+package views.pagedata;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Utility class to manipulate telephone type .
+ * Utility class to manipulate tagId type .
  */
 public class TelephoneTypes {
   private static String[] types = {"Home", "Work", "Mobile"};
 
   /**
-   * To get the telephone types.
-   * @return the map of telephone types.
+   * To get the tagId types.
+   * @return the map of tagId types.
    */
   public static Map<String, Boolean> getTypes() {
     Map<String, Boolean> typeMap = new HashMap<String, Boolean>();
@@ -22,18 +22,18 @@ public class TelephoneTypes {
   }
 
   /**
-   * Checks if telephone type is valid or not.
-   * @param type the telephone type.
-   * @return true if valid telephone type, else false.
+   * Checks if tagId type is valid or not.
+   * @param type the tagId type.
+   * @return true if valid tagId type, else false.
    */
   public static boolean isType(String type) {
     return getTypes().containsKey(type);
   }
 
   /**
-   * Checks for acceptable telephone type and sets to true if selected.
-   * @param type the telephone type.
-   * @return the map of telephone types.
+   * Checks for acceptable tagId type and sets to true if selected.
+   * @param type the tagId type.
+   * @return the map of tagId types.
    */
   public static Map<String, Boolean> getTypes(String type) {
     Map<String, Boolean> typeMap = getTypes();
