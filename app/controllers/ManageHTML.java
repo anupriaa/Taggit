@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import maui.main.MauiTopicExtractor
+//import maui.main.MauiTopicExtractor
 
 /**
  * Handles the html data from the entered URL
@@ -44,7 +44,7 @@ public class ManageHTML {
     }
   }
 
-  public static void extractKeywordsFromString(String text) {
+  /*public static void extractKeywordsFromString(String text) {
     val extractor = new MauiTopicExtractor();
     extractor.setOptions(opts)
     extractor.loadModel()
@@ -53,5 +53,5 @@ public class ManageHTML {
 
     println("Keyphrases are: " + extractor.extractKeyphrasesFromText(text).toList.toString)
   }
-
+*/
 }
