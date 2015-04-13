@@ -4,13 +4,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 //import maui.main.MauiTopicExtractor
 
 /**
- * Handles the html data from the entered URL
+ * Handles the html data from the entered URL.
  */
 public class ManageHTML {
 
@@ -22,7 +21,7 @@ public class ManageHTML {
     ArrayList aList;
     System.out.println("INSIDE extractMetaData ");
     try {
-      System.out.println("enteredUrl-- "+enteredUrl);
+      System.out.println("enteredUrl-- " + enteredUrl);
       //URL url = new URL("http://www.apple.com/pr/");
       //Document document = Jsoup.parse(url, 3000);
       //System.out.println("encoding== " + java.net.URLEncoder.encode("http://dictionary.reference.com", "UTF-8"));

@@ -21,7 +21,7 @@ public class DataEntryDB {
    */
   public static void addUrl(EntryFormData entryData) {
 
-    DataEntry dataEntry = new DataEntry( entryData.url);
+    DataEntry dataEntry = new DataEntry(entryData.url);
     urls.put(currentId++, dataEntry);
   }
 

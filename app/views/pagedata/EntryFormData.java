@@ -1,6 +1,5 @@
 package views.pagedata;
 
-import models.DataEntry;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
