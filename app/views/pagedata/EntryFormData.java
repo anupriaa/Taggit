@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class EntryFormData {
   /** String to hold url. */
-  public String url = "www.dictionary.com";
+  public String url = "http://dictionary.reference.com";
 
   /**
    * Checks if the form field is valid. Called bu bindRequestForm().
