@@ -3,9 +3,10 @@
 # ~~~~
 
 # Home page
-GET        /                controllers.Application.index()
-POST       /Home                    controllers.Application.postEntry()
-GET        /Search              controllers.Application.search(entryId: Long ?= 0)
+GET        /                    controllers.Application.index()
+GET        /EnterUrl            controllers.Application.enterUrl()
+#POST       /Home                controllers.Application.postEntry()
+#GET        /Search              controllers.Application.search(entryId: Long ?= 0)
 
 
 # Map static resources from the /public folder to the /assets URL path

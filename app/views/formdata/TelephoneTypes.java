@@ -1,4 +1,4 @@
-package views.pagedata;
+package views.formdata;
 
 import java.util.HashMap;
 import java.util.Map;

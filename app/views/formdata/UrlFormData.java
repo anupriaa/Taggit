@@ -1,4 +1,4 @@
-package views.pagedata;
+package views.formdata;
 
 import play.data.validation.ValidationError;
 
@@ -8,16 +8,16 @@ import java.util.List;
 /**
  * Backing class for the index form.
  */
-public class EntryFormData {
+public class UrlFormData {
   /** String to hold url. */
-  public String url = "http://dictionary.reference.com";
+  public String url = "";
 
   /**
    * Checks if the form field is valid. Called bu bindRequestForm().
    * @return null if no errors else ist of errors.
-   */
+   *//*
   public List<ValidationError> validate() {
-    System.out.println("INSIDE VALIDATE url : " + url + "end");
+    System.out.println("INSIDE VALIDATE url : " + url + " end");
     List<ValidationError> errors = new ArrayList<>();
 
     if (url == null || url.length() == 0) {
@@ -25,10 +25,10 @@ public class EntryFormData {
     }
     return errors.isEmpty() ? null : errors;
   }
-  /**
+  *//**
    * No-arg constructor required by play.
-   */
-  public EntryFormData() {
+   *//*
+  public UrlFormData() {
     //no arg constructor
   }
 
