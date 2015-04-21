@@ -4,6 +4,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -16,6 +17,7 @@ public class UrlInfo extends Model {
   private long urlId;
   private String urlType = "";
   private String url = "";
+  private long urlEntryId;
 
   @OneToOne
   private Entry entry;
@@ -73,5 +75,13 @@ public class UrlInfo extends Model {
 
   public void setEntry(Entry entry) {
     this.entry = entry;
+  }
+
+  public long getUrlEntryId() {
+    return urlEntryId;
+  }
+
+  public void setUrlEntryId(long urlEntryId) {
+    this.urlEntryId = urlEntryId;
   }
 }

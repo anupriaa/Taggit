@@ -37,6 +37,7 @@ public class ProcessUrlData {
     //check if url points to an image.
     System.out.println("ISIMAGE ===" + isImage(url));
     if (isImage(url)) {
+      KEYWORDS = new ArrayList<>();
       URL_TYPE = "image";
       extractImageInfo(url);
       System.out.println("FINAL KEYWORDS---" + KEYWORDS);
@@ -45,6 +46,7 @@ public class ProcessUrlData {
       // UrlInfoDB.addUrlInfo(URL_TYPE, url);
     }
     else {
+      KEYWORDS = new ArrayList<>();
       URL_TYPE = "text";
       //call function to extract keywords from meta data.
       extractMetaData(url);

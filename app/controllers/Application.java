@@ -3,6 +3,7 @@ package controllers;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.formdata.SearchFormData;
 import views.html.EnterUrl;
 import views.html.Index;
 import views.html.Search;
@@ -50,6 +51,7 @@ public class Application extends Controller {
       Collections.addAll(queryKeywords, queryData.split("\\W"));
       System.out.println("ARRAYLIST---"+queryKeywords);
       SearchEntries.searchUrl(queryKeywords);
+      Form<SearchFormData> formData = Form.form(SearchFormData.class).fill(data);
       return ok(Search.render("Searching data"));
     }
     else {

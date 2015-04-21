@@ -13,6 +13,7 @@ create table entry (
 create table keywords (
   id                        bigint not null,
   keyword                   varchar(255),
+  keyword_entry_id          bigint,
   entry_entry_id            bigint,
   constraint pk_keywords primary key (id))
 ;
@@ -21,6 +22,7 @@ create table url_info (
   url_id                    bigint not null,
   url_type                  varchar(255),
   url                       varchar(255),
+  url_entry_id              bigint,
   entry_entry_id            bigint,
   constraint pk_url_info primary key (url_id))
 ;

@@ -14,7 +14,8 @@ public class Keywords extends Model {
   @Id
   private long id;
   //ArrayList<Keywords> keyword = new ArrayList<Keywords>();
-  String keyword = "";
+  private String keyword = "";
+  private long keywordEntryId;
   @ManyToOne
   private Entry entry;
 
@@ -71,5 +72,13 @@ public class Keywords extends Model {
 
   public void setKeyword(String keyword) {
     this.keyword = keyword;
+  }
+
+  public long getKeywordEntryId() {
+    return keywordEntryId;
+  }
+
+  public void setKeywordEntryId(long keywordEntryId) {
+    this.keywordEntryId = keywordEntryId;
   }
 }

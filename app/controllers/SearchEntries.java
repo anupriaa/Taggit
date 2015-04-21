@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Keywords;
+import models.UrlInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,25 @@ import java.util.List;
  */
 public class SearchEntries {
   public static void searchUrl(ArrayList<String> queryKeywords) {
-    List<Keywords> id = Keywords.find()
-                    .select("entry_id")
+    List<Keywords> idList = Keywords.find()
+                    .select("keywordEntryId")
                     .where()
                     .in("keyword",queryKeywords)
                     .findList();
 
-    System.out.println("keyword in search----"+id.get(0));
+    ArrayList<Long> keywordIdList = new ArrayList<Long>();
+    for (Keywords keywords : idList) {
+      keywordIdList.add(keywords.getKeywordEntryId());
+    }
+
+    System.out.println("keyword in search----" + keywordIdList);
+    List<UrlInfo> urlList = UrlInfo.find().select("url").where().in("urlEntryId", keywordIdList).findList();
+
+    ArrayList<String> urls = new ArrayList<String>();
+    for (UrlInfo urlInfo : urlList) {
+      urls.add(urlInfo.getUrl());
+    }
+    System.out.println("urls in search----" + urls);
   }
 
 }
