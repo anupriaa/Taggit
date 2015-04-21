@@ -3,11 +3,11 @@ package views.formdata;
 /**
  * Backing class for the index form.
  */
-public class UrlFormData {
+public class SearchFormData {
   /**
    * String to hold url.
    */
-  public String url = "";
+  public String queryData = "";
 
   /**
    * Checks if the form field is valid. Called bu bindRequestForm().

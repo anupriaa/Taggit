@@ -30,18 +30,19 @@ public class ProcessUrlData {
 
   /**
    * Extracts all the information from URL and stores it in the DB.
+   *
    * @param url the url entered by the user.
    */
   public static void processUrl(String url) {
     //check if url points to an image.
-    System.out.println("ISIMAGE ==="+isImage(url));
+    System.out.println("ISIMAGE ===" + isImage(url));
     if (isImage(url)) {
       URL_TYPE = "image";
       extractImageInfo(url);
-      System.out.println("FINAL KEYWORDS---"+KEYWORDS);
+      System.out.println("FINAL KEYWORDS---" + KEYWORDS);
       EntryDB.addEntry(ENTRY_TYPE, KEYWORDS, URL_TYPE, url);
       //store the url information associated with this entry.
-     // UrlInfoDB.addUrlInfo(URL_TYPE, url);
+      // UrlInfoDB.addUrlInfo(URL_TYPE, url);
     }
     else {
       URL_TYPE = "text";
@@ -49,15 +50,16 @@ public class ProcessUrlData {
       extractMetaData(url);
       //to extract info of main image n the page
       extractMainImageInfo(url);
-      System.out.println("FINAL KEYWORDS---"+KEYWORDS);
+      System.out.println("FINAL KEYWORDS---" + KEYWORDS);
       EntryDB.addEntry(ENTRY_TYPE, KEYWORDS, URL_TYPE, url);
       //store the url information associated with this entry.
-     // UrlInfoDB.addUrlInfo(URL_TYPE, url);
+      // UrlInfoDB.addUrlInfo(URL_TYPE, url);
     }
   }
 
-   /**
+  /**
    * Extracts the meta data from html.
+   *
    * @param url The url entered by the user.
    */
   private static void extractMetaData(String url) {
@@ -86,6 +88,7 @@ public class ProcessUrlData {
   /**
    * Extracts the keywords from description of a website.
    * Uses  an open-source library. http://unirest.io/java.
+   *
    * @param description the description of the website.
    */
   private static void extractKeywords(String description) {
@@ -117,7 +120,7 @@ public class ProcessUrlData {
           KEYWORDS.add(array.getJSONObject(i).getString("text"));
         }
       }
-      System.out.println("list---"+KEYWORDS);
+      System.out.println("list---" + KEYWORDS);
     }
     catch (Exception e) {
       UnsupportedEncodingException en;
@@ -127,6 +130,7 @@ public class ProcessUrlData {
 
   /**
    * Checks if entered url points to an image.
+   *
    * @param url the url entered by the user.
    * @return true if points to an image, false otherwise.
    */
@@ -177,6 +181,7 @@ public class ProcessUrlData {
   /**
    * Extracts image information from an image url.
    * Uses Alchemy API.
+   *
    * @param url url entered by the user.
    */
   public static void extractImageInfo(String url) {
@@ -202,7 +207,7 @@ public class ProcessUrlData {
           KEYWORDS.add(array.getJSONObject(i).getString("text"));
         }
       }
-      System.out.println("IMAGE list---"+ KEYWORDS);
+      System.out.println("IMAGE list---" + KEYWORDS);
     }
     catch (Exception e) {
       UnsupportedEncodingException en;
@@ -228,7 +233,7 @@ public class ProcessUrlData {
       System.out.println("IMAGE Response: " + response.getBody().getObject());
       JSONObject respObj = response.getBody().getObject();
       imageUrl = respObj.getString("image");
-      if(imageUrl != "" || imageUrl == null) {
+      if (imageUrl != "" || imageUrl == null) {
         System.out.println("IMAGE url---" + imageUrl);
         extractImageInfo(imageUrl);
       }

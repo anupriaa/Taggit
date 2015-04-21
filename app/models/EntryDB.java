@@ -1,8 +1,5 @@
 package models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,26 +14,25 @@ public class EntryDB {
 
   /**
    * Adds entry to database.
+   *
    * @param entryType the type of entry.
-   * @param keywords the keywords associated with the entry.
+   * @param keywords  the keywords associated with the entry.
+   * @param urlType   the type of url
+   * @param url       the url.
    */
 
   public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url) {
-
-    System.out.println("KEYWORD--"+keywords);
 
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
     ArrayList<Keywords> keywordList = new ArrayList<>();
     for (String keywordString : keywords) {
-      keywordList.add(new Keywords(keywordString));
+      //keywordList.add(new Keywords(keywordString));
+      Keywords keywords1 = new Keywords(keywordString);
 
     }
-
-    Entry entry = new Entry(entryType, timeStamp, keywordList);
-
     UrlInfo urlInfo = new UrlInfo(urlType, url);
-
+    Entry entry = new Entry(entryType, timeStamp, keywordList, urlInfo);
 
     entry.setUrlInfo(urlInfo);
     urlInfo.setEntry(entry);
@@ -45,12 +41,10 @@ public class EntryDB {
 
     urlInfo.save();
 
-
-
-
-
-
-
-    //return(ENTRY_ID);
+    for (String keywordString : keywords) {
+      //keywordList.add(new Keywords(keywordString));
+      Keywords keywords1 = new Keywords(keywordString);
+      keywords1.save();
+    }
   }
 }

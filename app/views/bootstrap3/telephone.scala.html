@@ -1,4 +1,4 @@
-@(telField: Field,typeField: Field, optionMap: Map[String, Boolean], isMultiple: Boolean )
+@(telField: Field, typeField: Field, optionMap: Map[String, Boolean], isMultiple: Boolean)
 
 <div class="form-group @if(telField.hasErrors || typeField.hasErrors) {has-error}">
     <label class="col-sm-2 control-label">tagId</label>
@@ -9,20 +9,28 @@
         name="@telField.name"
         value="@telField.value.getOrElse("")"
         placeholder="808-788-7889" />
-        <span class="help-block">@{telField.error.map { error => error.message }}</span>
+        <span class="help-block">@{
+            telField.error.map { error => error.message}
+        }</span>
     </div>
 
     <div class="col-sm-4">
         <select
         class="form-control"
         entryId="@typeField.id"
-        name="@if(isMultiple) {@(typeField.name + "[]")} else {@typeField.name}"
+        name="@if(isMultiple) {@(typeField.name + "[]")} else {
+    @typeField.name
+    }"
         @if(isMultiple) {multiple="multiple"}>
-        @if(!isMultiple) {<option class="blank" value="">Please select a value</option>}
+        @if(!isMultiple) {
+            <option class="blank" value="">Please select a value</option>
+        }
         @for((optionName, isSelected) <- optionMap) {
-            <option entryId="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
+            <option entryId="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName </option>
         }
         </select>
-        <span class="help-block">@{typeField.error.map { error => error.message }}</span>
+        <span class="help-block">@{
+            typeField.error.map { error => error.message}
+        }</span>
     </div>
 </div>

@@ -2,10 +2,8 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -20,7 +18,6 @@ public class UrlInfo extends Model {
   private String url = "";
 
   @OneToOne
-  @JoinColumn(name = "url_entry_id", referencedColumnName = "entry_id")
   private Entry entry;
 
   public UrlInfo(String urlType, String url) {
@@ -30,6 +27,7 @@ public class UrlInfo extends Model {
 
   /**
    * Adds the entries.
+   *
    * @param entry the contact list.
    */
   public void addEntry(Entry entry) {
@@ -38,10 +36,11 @@ public class UrlInfo extends Model {
 
   /**
    * The EBean ORM finder method for database queries.
+   *
    * @return The finder method.
    */
   public static Finder<Long, UrlInfo> find() {
-    return new Finder<Long, UrlInfo>(Long.class, UrlInfo  .class);
+    return new Finder<Long, UrlInfo>(Long.class, UrlInfo.class);
   }
 
   public long getUrlId() {

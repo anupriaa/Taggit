@@ -5,6 +5,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.EnterUrl;
 import views.html.Index;
+import views.html.Search;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Provides controllers for this application.
@@ -27,7 +31,7 @@ public class Application extends Controller {
    */
   public static Result enterUrl() {
     String url = Form.form().bindFromRequest().get("url");
-    System.out.println("url---"+url);
+    System.out.println("url---" + url);
     if (url != null) {
       //call class that captures data and feeds it to db.
       ProcessUrlData.processUrl(url);
@@ -36,33 +40,23 @@ public class Application extends Controller {
     else {
       return badRequest(EnterUrl.render("Data not entered"));
     }
+  }
+
+  public static Result search() {
+    String queryData = Form.form().bindFromRequest().get("queryData");
+    System.out.println("queryData---"+queryData);
+    if(queryData != null) {
+      ArrayList<String> queryKeywords = new ArrayList<>();
+      Collections.addAll(queryKeywords, queryData.split("\\W"));
+      System.out.println("ARRAYLIST---"+queryKeywords);
+      SearchEntries.searchUrl(queryKeywords);
+      return ok(Search.render("Searching data"));
+    }
+    else {
+      return badRequest(Search.render("Bad request"));
+    }
 
   }
-  /**
-   * Returns search, a simple example of a second page to illustrate navigation.
-   * @param id The entryId.
-   * @return The Search.
-   */
-  /*public static Result search(long id) {
-    //entryData data = (id == 0) ? new entryData() : new entryData(DataEntryDB.getContact(id));
-    UrlFormData data = new UrlFormData();
-    Form<UrlFormData> formData = Form.form(UrlFormData.class);
-    return ok(Search.render(formData));
-  }*/
-  /**
-   * Handles the http POST request for new DataEntry form.
-   * @return The recent data added to the new DataEntry form.
-   */
-  /*public static String processUrl(String url) {
-    System.out.print("INSIDE processUrl");
 
-
-      ProcessUrlData.extractMetaData(url);
-      //ManageAPICall.alchemyAPICall(data.url);
-      //DataEntryDB.addUrl(data);
-      System.out.printf("%s, %n", url);
-    return("ok");
-
-  }*/
 
 }

@@ -11,11 +11,12 @@ public class TelephoneTypes {
 
   /**
    * To get the tagId types.
+   *
    * @return the map of tagId types.
    */
   public static Map<String, Boolean> getTypes() {
     Map<String, Boolean> typeMap = new HashMap<String, Boolean>();
-    for (String type: types) {
+    for (String type : types) {
       typeMap.put(type, false);
     }
     return typeMap;
@@ -23,6 +24,7 @@ public class TelephoneTypes {
 
   /**
    * Checks if tagId type is valid or not.
+   *
    * @param type the tagId type.
    * @return true if valid tagId type, else false.
    */
@@ -32,6 +34,7 @@ public class TelephoneTypes {
 
   /**
    * Checks for acceptable tagId type and sets to true if selected.
+   *
    * @param type the tagId type.
    * @return the map of tagId types.
    */

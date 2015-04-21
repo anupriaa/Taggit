@@ -2,8 +2,13 @@ package models;
 
 
 import play.db.ebean.Model;
-import javax.persistence.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 
 /**
@@ -19,25 +24,28 @@ public class Entry extends Model {
   private String entryType = "";
   private String timestamp = "";
 
-  @OneToOne (mappedBy = "entry", cascade = CascadeType.PERSIST)
+  @OneToOne(mappedBy = "entry", cascade = CascadeType.PERSIST)
   private UrlInfo urlInfo;
 
-  @OneToMany (mappedBy = "entry", cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "entry", cascade = CascadeType.PERSIST)
   private ArrayList<Keywords> keywords;
 
   /**
    * Constructor to initialize the entry.
+   *
    * @param entryType the type of entry.
    * @param timestamp the time and date.
    */
-  public Entry(String entryType, String timestamp, ArrayList<Keywords> keywords) {
+  public Entry(String entryType, String timestamp, ArrayList<Keywords> keywords, UrlInfo urlInfo) {
     this.entryType = entryType;
     this.timestamp = timestamp;
     this.keywords = keywords;
+    this.urlInfo = urlInfo;
   }
 
   /**
    * The EBean ORM finder method for database queries.
+   *
    * @return The finder method.
    */
   public static Finder<Long, Entry> find() {

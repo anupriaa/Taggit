@@ -4,22 +4,19 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import java.util.ArrayList;
 
 /**
  * Created by Anupriya on 4/20/2015.
  */
 @Entity
-public class Keywords extends Model{
+public class Keywords extends Model {
   @Id
   private long id;
-  private String keyword = "";
+  //ArrayList<Keywords> keyword = new ArrayList<Keywords>();
+  String keyword = "";
   @ManyToOne
-  //@JoinColumn(name = "keyword_id", referencedColumnName = "entry_id")
-  ArrayList<Entry> entry = new ArrayList<>();
+  private Entry entry;
 
   public Keywords(String keyword) {
     this.keyword = keyword;
@@ -27,17 +24,45 @@ public class Keywords extends Model{
 
   /**
    * Adds the entries.
+   *
    * @param entry the entry list.
    */
   public void addEntry(Entry entry) {
-    this.entry.add(entry);
+    this.entry = entry;
   }
+
   /**
    * The EBean ORM finder method for database queries.
+   *
    * @return The finder method.
    */
   public static Model.Finder<Long, Keywords> find() {
     return new Model.Finder<Long, Keywords>(Long.class, Keywords.class);
+  }
+
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  /*public ArrayList<Keywords> getKeyword() {
+    return keyword;
+  }
+
+  public void setKeyword(ArrayList<Keywords> keyword) {
+    this.keyword = keyword;
+  }*/
+
+  public Entry getEntry() {
+    return entry;
+  }
+
+  public void setEntry(Entry entry) {
+    this.entry = entry;
   }
 
   public String getKeyword() {
@@ -46,21 +71,5 @@ public class Keywords extends Model{
 
   public void setKeyword(String keyword) {
     this.keyword = keyword;
-  }
-
-  public ArrayList<Entry> getEntry() {
-    return entry;
-  }
-
-  public void setEntry(ArrayList<Entry> entry) {
-    this.entry = entry;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
   }
 }
