@@ -1,15 +1,42 @@
 body {
+    background-color: #B1C0E6;
 }
 
 .header {
-    background-image: url("../images/background.jpg");
-    background-position: center;
-    background-size: cover;
+    background-image: url("../images/TagIt.png");
+    background-color: #B1C0E6;
+    background-position: left;
+    background-repeat: no-repeat;
     height: 200px;
 }
 
+.formBody {
+    padding-top: 40px;
+}
 .background {
-    background-image: url("../images/background.jpg");
+    /*background-image: url("../images/background.jpg");*/
+    background-color: #9078B3;
     background-position: center;
-    background-size: cover;
+    background-repeat: repeat;
+}
+.navbar-inverse{
+    background-color: #9C99CC;
+    background-image: none;
+    border-color: #9C99CC;
+}
+.navbar-fixed-bottom{
+    background-color: #75548C;
+    background-image: none;
+    border-color: #75548C ;
+
+}
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #75548C;
+}
+.link{
+    color: #B1C0E6;
+}
+.table-bordered{
+    border-color: #B1C0E6;
 }
