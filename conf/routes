@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.Application.index()
-GET        /EnterUrl            controllers.Application.enterUrl()
+#GET        /                    controllers.Application.index()
+GET        /            controllers.Application.enterUrl()
 GET        /Search              controllers.Application.search()
 
 POST       /Search              controllers.Application.searchResult()

@@ -6,7 +6,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.SearchFormData;
 import views.html.EnterUrl;
-import views.html.Index;
+//import views.html.Index;
 import views.html.Search;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class Application extends Controller {
    * Returns the home page.
    * @return The resulting home page.
    */
-  public static Result index() {
+  /*public static Result index() {
     return ok(Index.render("Home page"));
-  }
+  }*/
 
   /**
    * Returns the page to enter url.
