@@ -1,7 +1,7 @@
 # Taggit as and when you like it.
 
 ## Overview
-Life is complicated, simplify it with [Taggit](http://www.taggit.website/EnterUrl).
+Life is complicated, simplify it with [Taggit](http://www.taggit.website/).
 
 ![Enter Keywords](https://github.com/anupriaa/Taggit/blob/master/doc/images/Search.png)
 
