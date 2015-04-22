@@ -17,8 +17,9 @@
           <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
           <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
         <![endif]-->
+            <!-- Custom styles for this template -->
     </head>
-    <body>
+    <body class = "background">
         <div class="header hidden-xs"></div>
             <!-- Responsive navbar -->
         <div class="navbar navbar-inverse " role="navigation">
@@ -40,8 +41,16 @@
                 </div>
             </div>
         </div>
-        <div class="background "></div>
+
         @content
+
+        <div id="footer" class="container">
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div class="navbar-inner navbar-content-center">
+                    <p class="text-muted credit text-right">For more information, please visit the  project's <a href="http://anupriaa.github.io/Taggit/">GitHub Page</a></p>
+                </div>
+            </nav>
+        </div>
             <!-- Load Bootstrap JavaScript components. -->
         <script src="//code.jquery.com/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
