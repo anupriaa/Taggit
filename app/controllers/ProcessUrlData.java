@@ -72,7 +72,7 @@ public class ProcessUrlData {
 
       //get meta keyword content
       String keywords = doc.select("meta[name=keywords]").first().attr("content");
-      ProcessUrlData.keywords = new ArrayList(Arrays.asList(keywords.split(",")));
+      ProcessUrlData.keywords = new ArrayList<String>(Arrays.asList(keywords.split(",")));
 
       //get meta description content
       String description = doc.select("meta[name=description]").get(0).attr("content");
