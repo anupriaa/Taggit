@@ -6,6 +6,8 @@
 GET        /                    controllers.Application.index()
 GET        /EnterUrl            controllers.Application.enterUrl()
 GET        /Search              controllers.Application.search()
+
+POST       /Search              controllers.Application.searchResult()
 #POST       /Home                controllers.Application.postEntry()
 #GET        /Search              controllers.Application.search(entryId: Long ?= 0)
 

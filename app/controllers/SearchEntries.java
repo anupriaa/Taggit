@@ -10,7 +10,7 @@ import java.util.List;
  * Searches the url entries related to entered keyword.
  */
 public class SearchEntries {
-  public static void searchUrl(ArrayList<String> queryKeywords) {
+  public static List<UrlInfo> searchUrl(ArrayList<String> queryKeywords) {
     List<Keywords> idList = Keywords.find()
                     .select("keywordEntryId")
                     .where()
@@ -30,6 +30,7 @@ public class SearchEntries {
       urls.add(urlInfo.getUrl());
     }
     System.out.println("urls in search----" + urls);
+    return urlList;
   }
 
 }
