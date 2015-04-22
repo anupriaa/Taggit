@@ -4,7 +4,6 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -22,6 +21,11 @@ public class UrlInfo extends Model {
   @OneToOne
   private Entry entry;
 
+  /**
+   * Constructor to initialize the attributes.
+   * @param urlType the type of url.
+   * @param url the url.
+   */
   public UrlInfo(String urlType, String url) {
     this.urlType = urlType;
     this.url = url;
@@ -29,7 +33,6 @@ public class UrlInfo extends Model {
 
   /**
    * Adds the entries.
-   *
    * @param entry the contact list.
    */
   public void addEntry(Entry entry) {
@@ -45,42 +48,73 @@ public class UrlInfo extends Model {
     return new Finder<Long, UrlInfo>(Long.class, UrlInfo.class);
   }
 
+  /**
+   * Gets the url id.
+   * @return the url id.
+   */
   public long getUrlId() {
     return urlId;
   }
-
+  /**
+   * Sets the url id.
+   * @param urlId the url id.
+   */
   public void setUrlId(long urlId) {
     this.urlId = urlId;
   }
-
+  /**
+   * Gets the url type.
+   * @return the url Type.
+   */
   public String getUrlType() {
     return urlType;
   }
-
+  /**
+   * Sets the url type.
+   * @param urlType the url type.
+   */
   public void setUrlType(String urlType) {
     this.urlType = urlType;
   }
-
+  /**
+   * Gets the url .
+   * @return the url.
+   */
   public String getUrl() {
     return url;
   }
-
+  /**
+   * Gets the url.
+   * @param url the url.
+   */
   public void setUrl(String url) {
     this.url = url;
   }
-
+  /**
+   * Gets the entry instances.
+   * @return the entry instances.
+   */
   public Entry getEntry() {
     return entry;
   }
-
+  /**
+   * Sets the entry instances.
+   * @param entry the entry instances.
+   */
   public void setEntry(Entry entry) {
     this.entry = entry;
   }
-
+  /**
+   * Gets the entry id for this url.
+   * @return the entry id.
+   */
   public long getUrlEntryId() {
     return urlEntryId;
   }
-
+  /**
+   * Gets the entry id for this url.
+   * @param urlEntryId the entry id.
+   */
   public void setUrlEntryId(long urlEntryId) {
     this.urlEntryId = urlEntryId;
   }

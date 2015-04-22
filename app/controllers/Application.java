@@ -23,7 +23,6 @@ public class Application extends Controller {
    * @return The resulting home page.
    */
   public static Result index() {
-    //Form<UrlFormData> formData = Form.form(UrlFormData.class);
     return ok(Index.render("Home page"));
   }
 
@@ -45,25 +44,21 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Returns the search page.
+   * @return the searchFormData and an empty urlList
+   */
   public static Result search() {
     List<UrlInfo> urlList = new ArrayList<>();
     SearchFormData data = new SearchFormData();
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
     return ok(Search.render(searchFormData, urlList));
-    /*String queryData = Form.form().bindFromRequest().get("queryData");
-    System.out.println("queryData---"+queryData);
-    if(queryData != null) {
-      ArrayList<String> queryKeywords = new ArrayList<>();
-      Collections.addAll(queryKeywords, queryData.split("\\W"));
-      System.out.println("ARRAYLIST---"+queryKeywords);
-      SearchEntries.searchUrl(queryKeywords);
-      Form<SearchFormData> formData = Form.form(SearchFormData.class).fill(data);
-      return ok(Search.render("Searching data"));
-    }
-    else {
-      return badRequest(Search.render("Bad request"));
-    }*/
   }
+
+  /**
+   * Returns the search page with results.
+   * @return the searchFormData and the url list.
+   */
 
   public static Result searchResult() {
     List<UrlInfo> urlList = new ArrayList<>();
@@ -74,11 +69,9 @@ public class Application extends Controller {
     }
     else {
       String queryData = Form.form().bindFromRequest().get("queryData");
-      System.out.println("queryData---"+queryData);
       if (queryData != null) {
         ArrayList<String> queryKeywords = new ArrayList<>();
         Collections.addAll(queryKeywords, queryData.split("\\W"));
-        System.out.println("ARRAYLIST---"+queryKeywords);
         urlList = SearchEntries.searchUrl(queryKeywords);
         return ok(Search.render(searchFormData, urlList));
       }
@@ -86,10 +79,5 @@ public class Application extends Controller {
         return badRequest(Search.render(searchFormData, urlList));
       }
     }
-
-
-
   }
-
-
 }
