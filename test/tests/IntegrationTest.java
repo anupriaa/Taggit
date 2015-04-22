@@ -16,7 +16,9 @@ import static play.test.Helpers.testServer;
  * Runs a server with a fake in-memory database to test the system.
  */
 public class IntegrationTest {
-  /** The port to be used for testing. */
+  /**
+   * The port to be used for testing.
+   */
   private final int port = 3333;
 
   /**

@@ -14,8 +14,9 @@ public class NewContactPage extends FluentPage {
 
   /**
    * Create the IndexPage.
+   *
    * @param webDriver The driver.
-   * @param port The port.
+   * @param port      The port.
    */
   public NewContactPage(WebDriver webDriver, int port) {
     super(webDriver);
@@ -34,9 +35,10 @@ public class NewContactPage extends FluentPage {
 
   /**
    * Creates a new contact for testing.
-   * @param firstName the first name.
-   * @param lastName the last name.
-   * @param telephone the tagId number.
+   *
+   * @param firstName     the first name.
+   * @param lastName      the last name.
+   * @param telephone     the tagId number.
    * @param telephoneType the tagId type.
    */
   public void createContact(String firstName, String lastName, String telephone, String telephoneType) {

@@ -3,45 +3,47 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>@page (Taggit)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/spacelab/bootstrap.min.css">
+    <head>
+        <title>@page (Taggit)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/spacelab/bootstrap.min.css">
 
-      <!--  Load site-specific customizations after bootstrap. -->
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+            <!--  Load site-specific customizations after bootstrap. -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
-      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!--[if lt IE 9]>
+            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!--[if lt IE 9]>
           <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
           <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
         <![endif]-->
-  </head>
-  <body>
-    <div class="header hidden-xs"></div>
-      <!-- Responsive navbar -->
-    <div class="navbar navbar-inverse " role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <!--  Display three horizontal lines when navbar collapsed. -->
-            <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">taggit</a>
+    </head>
+    <body>
+        <div class="header hidden-xs"></div>
+            <!-- Responsive navbar -->
+        <div class="navbar navbar-inverse " role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <!--  Display three horizontal lines when navbar collapsed. -->
+                        <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">taggit</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="@("active".when(page == "Home"))"><a href="@routes.Application.index()">Home</a></li>
+                        <li class="@("active".when(page == "Search"))"><a href="@routes.Application.search()">Search</a></li>
+                        <li class="@("active".when(page == "EnterUrl"))"><a href="@routes.Application.enterUrl()">
+                            Enter url</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="@("active".when(page == "Home"))"><a href="@routes.Application.index()">Home</a></li>
-            <li class="@("active".when(page == "Search"))"><a href="@routes.Application.search()">Search</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="background "></div>
-    @content
-      <!-- Load Bootstrap JavaScript components. -->
-    <script src="//code.jquery.com/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  </body>
+        <div class="background "></div>
+        @content
+            <!-- Load Bootstrap JavaScript components. -->
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </body>
 </html>

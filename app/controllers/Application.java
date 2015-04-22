@@ -1,12 +1,17 @@
 package controllers;
 
-import models.DataEntryDB;
+import models.UrlInfo;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.Search;
-import views.pagedata.EntryFormData;
+import views.formdata.SearchFormData;
+import views.html.EnterUrl;
 import views.html.Index;
+import views.html.Search;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Provides controllers for this application.
@@ -18,39 +23,61 @@ public class Application extends Controller {
    * @return The resulting home page.
    */
   public static Result index() {
-    Form<EntryFormData> formData = Form.form(EntryFormData.class);
-    return ok(Index.render(formData));
+    return ok(Index.render("Home page"));
   }
 
   /**
-   * Returns search, a simple example of a second page to illustrate navigation.
-   * @param id The entryId.
-   * @return The Search.
+   * Returns the page to enter url.
+   * temporary until button is added.
+   * @return the form data.
    */
-  public static Result search(long id) {
-    //entryData data = (id == 0) ? new entryData() : new entryData(DataEntryDB.getContact(id));
-    EntryFormData data = new EntryFormData();
-    Form<EntryFormData> formData = Form.form(EntryFormData.class);
-    return ok(Search.render(formData));
-  }
-  /**
-   * Handles the http POST request for new DataEntry form.
-   * @return The recent data added to the new DataEntry form.
-   */
-  public static Result postEntry() {
-    System.out.print("INSIDE POST");
-    Form<EntryFormData> formData = Form.form(EntryFormData.class).bindFromRequest();
-    if (formData.hasErrors()) {
-      System.out.println("has error");
-      return badRequest(Index.render(formData));
+  public static Result enterUrl() {
+    String url = Form.form().bindFromRequest().get("url");
+    System.out.println("url---" + url);
+    if (url != null) {
+      //call class that captures data and feeds it to db.
+      ProcessUrlData.processUrl(url);
+      return ok(EnterUrl.render("Data entered"));
     }
     else {
-      EntryFormData data = formData.get();
-      ManageHTML.extractMetaData(data.url);
-      DataEntryDB.addUrl(data);
-      System.out.printf("%s, %n", data.url);
-      return ok(Index.render(formData));
+      return badRequest(EnterUrl.render("Data not entered"));
     }
   }
 
+  /**
+   * Returns the search page.
+   * @return the searchFormData and an empty urlList
+   */
+  public static Result search() {
+    List<UrlInfo> urlList = new ArrayList<>();
+    SearchFormData data = new SearchFormData();
+    Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
+    return ok(Search.render(searchFormData, urlList));
+  }
+
+  /**
+   * Returns the search page with results.
+   * @return the searchFormData and the url list.
+   */
+
+  public static Result searchResult() {
+    List<UrlInfo> urlList = new ArrayList<>();
+
+    Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
+    if (searchFormData.hasErrors()) {
+      return badRequest(Search.render(searchFormData, urlList));
+    }
+    else {
+      String queryData = Form.form().bindFromRequest().get("queryData");
+      if (queryData != null) {
+        ArrayList<String> queryKeywords = new ArrayList<>();
+        Collections.addAll(queryKeywords, queryData.split("\\W"));
+        urlList = SearchEntries.searchUrl(queryKeywords);
+        return ok(Search.render(searchFormData, urlList));
+      }
+      else {
+        return badRequest(Search.render(searchFormData, urlList));
+      }
+    }
+  }
 }

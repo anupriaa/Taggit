@@ -1,13 +1,15 @@
 body {
 }
-.header{
-  background-image: url("../images/background.jpg");
-  background-position: center;
-  background-size: cover;
-  height: 200px;
+
+.header {
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 200px;
 }
-.background{
-  background-image: url("../images/background.jpg");
-  background-position: center;
-  background-size: cover;
+
+.background {
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-size: cover;
 }

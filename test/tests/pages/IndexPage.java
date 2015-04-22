@@ -13,8 +13,9 @@ public class IndexPage extends FluentPage {
 
   /**
    * Create the IndexPage.
+   *
    * @param webDriver The driver.
-   * @param port The port.
+   * @param port      The port.
    */
   public IndexPage(WebDriver webDriver, int port) {
     super(webDriver);
@@ -33,9 +34,10 @@ public class IndexPage extends FluentPage {
 
   /**
    * Checks if contact added reflects on the home page.
-   * @param firstName the first name.
-   * @param lastName the last name.
-   * @param telephone the tagId number.
+   *
+   * @param firstName     the first name.
+   * @param lastName      the last name.
+   * @param telephone     the tagId number.
    * @param telephoneType the tagId type.
    */
   public void hasContact(String firstName, String lastName, String telephone, String telephoneType) {
