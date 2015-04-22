@@ -3,6 +3,8 @@
 ## Overview
 Life is complicated, simplify it with [Taggit](http://www.taggit.website/EnterUrl).
 
+<img src="https://www.dropbox.com/s/shjsz6fuy1ji7t5/Screenshot%202015-04-22%2001.43.17.png">
+
 This webapp attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium. Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.
 
 While this seems like a very expansive undertaking, the idea is pretty simple. Whenever you come across moment in your digital or analog lives that you wish to hold onto just a little bit longer...just link it with taggit, and carry on living the moment. Taggit will search for the relevant tags and save that snippet with the proper contextual information for future retrieval whenever you want to relive that moment.
@@ -15,7 +17,7 @@ Taggit is similar to several other apps out there that essentially serve as virt
 - <a href="https://www.heroku.com/">Deployed on Heroku</a>
 
 ##Current features
-This application intends to provide two ways of linking a resource to Taggit:
+This application intends to provide two ways of linking a resource to Taggit.
 1. Providing a URL to a website of interest.
 2. Manual text entry.
 
@@ -24,9 +26,9 @@ This application intends to provide two ways of linking a resource to Taggit:
 2. Social media linking.
 3. Photo uploads.
 
-The application can be accessed at [link](http://www.taggit.website/)  
+The currently deployed application can be accessed at [link](http://www.taggit.website/)  
 
-More details can be found in the [User Guide].
+More details can be found in the [User Guide](https://github.com/anupriaa/Taggit/wiki/User-Guide).
 
 Notes on deployment and development can be found in the [Developer's Guide](https://github.com/anupriaa/Taggit/wiki/Developer-Guide).
 
@@ -38,5 +40,4 @@ If you find any bugs or have any suggestions please log an [issue](https://githu
 - Taggit is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license.
 
 ##Version information
-
 Play 2.3.7, Bootstrap 3.3.2
