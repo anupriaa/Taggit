@@ -51,7 +51,6 @@ crashlytics-build.properties
 bin/
 /db
 .eclipse
-/lib/
 /logs/
 /modules
 /project/project
