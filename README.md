@@ -3,7 +3,7 @@
 ## Overview
 Life is complicated, simplify it with [Taggit](http://www.taggit.website/).
 
-![Enter Keywords](https://github.com/anupriaa/Taggit/blob/master/doc/images/Search.png)
+<img src="https://github.com/anupriaa/Taggit/blob/master/doc/images/Search.png">
 
 This webapp attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium. Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.
 
