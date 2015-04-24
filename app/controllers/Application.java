@@ -33,11 +33,18 @@ public class Application extends Controller {
    */
   public static Result enterUrl() {
     String url = Form.form().bindFromRequest().get("url");
-    System.out.println("url---" + url);
     if (url != null) {
-      //call class that captures data and feeds it to db.
-      ProcessUrlData.processUrl(url);
-      return ok(EnterUrl.render("Data entered"));
+      System.out.println("url---" + url);
+      int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
+      System.out.println("rowcount== " + rowCount);
+      if (rowCount == 0) {
+        //call class that captures data and feeds it to db.
+        ProcessUrlData.processUrl(url);
+        return ok(EnterUrl.render("Data entered"));
+      }
+      else {
+        return badRequest(EnterUrl.render("Data already exists."));
+      }
     }
     else {
       return badRequest(EnterUrl.render("Data not entered"));

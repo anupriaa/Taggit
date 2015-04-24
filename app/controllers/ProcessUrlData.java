@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import models.EntryDB;
+import models.UrlInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -16,6 +17,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Handles the html data from the entered URL.
@@ -23,7 +26,7 @@ import java.util.Arrays;
 public class ProcessUrlData {
 
   /**
-   * ArrayList to strore associted keywords.
+   * ArrayList to store associated keywords.
    */
   public static ArrayList<String> keywords = new ArrayList<String>();
   /**
@@ -46,18 +49,21 @@ public class ProcessUrlData {
   public static void processUrl(String url) {
     //check if url points to an image.
     if (isImage(url)) {
-      keywords = new ArrayList<>();
+      keywords = new ArrayList<String>();
       urlType = "image";
       extractImageInfo(url);
+      Collections.copy(keywords, removeWhiteSpaces(keywords));
       EntryDB.addEntry(entryType, keywords, urlType, url);
     }
     else {
       keywords = new ArrayList<>();
       urlType = "text";
+
       //call function to extract keywords from meta data from url.
       extractMetaData(url);
       //to extract info of main image n the page
       extractMainImageInfo(url);
+      Collections.copy(keywords, removeWhiteSpaces(keywords));
       EntryDB.addEntry(entryType, keywords, urlType, url);
     }
   }
@@ -198,5 +204,18 @@ public class ProcessUrlData {
       UnsupportedEncodingException en;
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Removes the leading and trailing white spaces from each keyword.
+   * @param keywords the keywords extracted.
+   * @return the trimmed keywords.
+   */
+  public static ArrayList<String> removeWhiteSpaces(ArrayList<String> keywords) {
+    ArrayList<String> keywordList = new ArrayList<String>();
+    for (String keyword: keywords) {
+      keywordList.add(keyword.trim());
+    }
+    return keywordList;
   }
 }
