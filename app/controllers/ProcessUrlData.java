@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import play.mvc.Controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -23,7 +24,7 @@ import java.util.Collections;
 /**
  * Handles the html data from the entered URL.
  */
-public class ProcessUrlData {
+public class ProcessUrlData extends Controller{
 
   /**
    * ArrayList to store associated keywords.
