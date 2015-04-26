@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Searches the url entries related to entered keyword.
  */
-public class SearchEntries extends Controller{
+public class SearchEntries extends Controller {
   /**
    * Queries the database for urls related to entered keyword.
    * @param queryKeywords the entered keywords.

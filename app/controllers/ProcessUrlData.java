@@ -24,7 +24,7 @@ import java.util.Collections;
 /**
  * Handles the html data from the entered URL.
  */
-public class ProcessUrlData extends Controller{
+public class ProcessUrlData extends Controller {
 
   /**
    * ArrayList to store associated keywords.

@@ -1,3 +1,5 @@
+import play.PlayJava
+
 name := """FinalProjectICS613"""
 
 version := "1.0-SNAPSHOT"
