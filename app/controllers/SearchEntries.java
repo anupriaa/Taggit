@@ -2,6 +2,7 @@ package controllers;
 
 import models.Keywords;
 import models.UrlInfo;
+import play.mvc.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Searches the url entries related to entered keyword.
  */
-public class SearchEntries {
+public class SearchEntries extends Controller {
   /**
    * Queries the database for urls related to entered keyword.
    * @param queryKeywords the entered keywords.

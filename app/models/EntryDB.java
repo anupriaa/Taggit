@@ -1,5 +1,7 @@
 package models;
 
+import play.db.ebean.Model;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,7 +11,7 @@ import java.util.Calendar;
  * Adds the url information related to entry.
  * Adds the keywords associated with entry.
  */
-public class EntryDB {
+public class EntryDB extends Model {
 
   /**
    * Adds entry to the database.
