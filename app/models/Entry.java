@@ -32,7 +32,7 @@ public class Entry extends Model {
   @OneToMany(mappedBy = "entry", cascade = CascadeType.PERSIST)
   private ArrayList<Keywords> keywords;
 
-  @ManyToOne(mappedBy = "entry", cascade = CascadeType.PERSIST)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private UserInfo userInfo;
 
   /**

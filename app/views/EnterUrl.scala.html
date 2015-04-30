@@ -5,6 +5,10 @@
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
         @form(routes.Application.enterUrl(), 'class -> "form-horizontal formBody") {
+            <input type="hidden"
+            name="UserId"
+            id="UserId"
+            value="@userInfo.getId()">
                 <!-- url -->
             <div class="form-group">
                 <label class="col-sm-3 control-label">Enter Url</label>

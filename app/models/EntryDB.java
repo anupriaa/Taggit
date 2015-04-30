@@ -79,7 +79,7 @@ public class EntryDB {
    * @param url       the url.
    */
 
-  public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url) {
+  public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url, Long userId) {
 
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
@@ -89,7 +89,8 @@ public class EntryDB {
 
     }
     UrlInfo urlInfo = new UrlInfo(urlType, url);
-    Entry entry = new Entry(entryType, timeStamp, keywordList, urlInfo, UserInfo);
+    UserInfo userInfo = getUser(userId);
+    Entry entry = new Entry(entryType, timeStamp, keywordList, urlInfo, userInfo);
 
     entry.setUrlInfo(urlInfo);
     urlInfo.setEntry(entry);

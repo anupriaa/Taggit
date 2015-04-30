@@ -47,14 +47,14 @@ public class ProcessUrlData extends Controller {
    * Extracts all the information from URL and stores it in the DB.
    * @param url the url entered by the user.
    */
-  public static void processUrl(String url) {
+  public static void processUrl(String url , Long userId) {
     //check if url points to an image.
     if (isImage(url)) {
       keywords = new ArrayList<String>();
       urlType = "image";
       extractImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url);
+      EntryDB.addEntry(entryType, keywords, urlType, url, userId);
     }
     else {
       keywords = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ProcessUrlData extends Controller {
       //to extract info of main image n the page
       extractMainImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url);
+      EntryDB.addEntry(entryType, keywords, urlType, url, userId);
     }
   }
 

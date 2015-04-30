@@ -141,13 +141,14 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result enterUrl() {
     String url = Form.form().bindFromRequest().get("url");
+    Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
     if (url != null) {
       System.out.println("url---" + url);
       int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
       System.out.println("rowcount== " + rowCount);
       if (rowCount == 0) {
         //call class that captures data and feeds it to db.
-        ProcessUrlData.processUrl(url);
+        ProcessUrlData.processUrl(url , userId);
         return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
       else {
@@ -168,7 +169,7 @@ public class Application extends Controller {
     List<UrlInfo> urlList = new ArrayList<>();
     SearchFormData data = new SearchFormData();
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
-    return ok(Search.render(searchFormData, urlList));
+    return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
   }
 
   /**
@@ -181,7 +182,7 @@ public class Application extends Controller {
 
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
     if (searchFormData.hasErrors()) {
-      return badRequest(Search.render(searchFormData, urlList));
+      return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
     }
     else {
       String queryData = Form.form().bindFromRequest().get("queryData");
@@ -189,10 +190,10 @@ public class Application extends Controller {
         ArrayList<String> queryKeywords = new ArrayList<>();
         Collections.addAll(queryKeywords, queryData.split("\\W"));
         urlList = SearchEntries.searchUrl(queryKeywords);
-        return ok(Search.render(searchFormData, urlList));
+        return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
       }
       else {
-        return badRequest(Search.render(searchFormData, urlList));
+        return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
       }
     }
   }

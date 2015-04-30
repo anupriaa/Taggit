@@ -52,7 +52,7 @@ public class Secured extends Security.Authenticator {
   }
 
   /**
-   * Check if the user is loged in.
+   * Check if the user is logged in.
    * @param context The context.
    * @return True if the user is logged in, null otherwise.
    */
@@ -67,6 +67,6 @@ public class Secured extends Security.Authenticator {
    * @return The User object, or null.
    */
   public static UserInfo getUserInfo(Context context) {
-    return (isLoggedIn(context) ? EntryDB.getDigitsUser(getUser(context)) : null);
+    return (isLoggedIn(context) ? EntryDB.getUser(getUser(context)) : null);
   }
 }

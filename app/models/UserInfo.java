@@ -18,8 +18,8 @@ public class UserInfo extends Model {
     private long id;
     private String email;
     private String password;
-    @OneToMany
-    private List<Entry> entry = new ArrayList<>();
+    @OneToMany(mappedBy = "userInfo")
+    private List<Entry> entries = new ArrayList<>();
 
 
     /**
@@ -76,7 +76,7 @@ public class UserInfo extends Model {
      * @param entry The entry.
      */
     public void setEntries(List<Entry> entry) {
-      this.entry = entry;
+      this.entries = entry;
     }
 
     /**
@@ -113,7 +113,7 @@ public class UserInfo extends Model {
      * @return The associated entries.
      */
     public List<Entry> getEntry() {
-      return entry;
+      return entries;
     }
 
     /**
@@ -122,6 +122,6 @@ public class UserInfo extends Model {
      * @param entry The entry to Add.
      */
     public void addEntry(Entry entry) {
-      entry.add(entry);
+      entries.add(entry);
     }
 }
