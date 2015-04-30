@@ -1,8 +1,8 @@
-@(message: String)
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo)
 
 @import helper._
 
-@Main("EnterUrl") {
+@Main(page, isLoggedIn, userInfo) {
     <div class="container">
         @form(routes.Application.enterUrl(), 'class -> "form-horizontal formBody") {
                 <!-- url -->

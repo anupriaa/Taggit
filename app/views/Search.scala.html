@@ -1,11 +1,19 @@
-@(contactForm: Form[views.formdata.SearchFormData],
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo,contactForm: Form[views.formdata.SearchFormData],
         urlInfo : List[UrlInfo])
 
 @import helper._
+@import views.html.bootstrap3._
 
-@Main("Search") {
+@Main(page, isLoggedIn, userInfo) {
     <div class="container">
         @form(routes.Application.searchResult(), 'class -> "form-horizontal formBody") {
+                <!-- Hidden userID Field. -->
+            @hidden(contactForm("Id"))
+                <!-- Hidden UserId Field -->
+            <input type="hidden"
+            name="UserId"
+            id="digitsUserId"
+            value="@userInfo.getId()">
                 <!-- url -->
             <div class="form-group">
                 <label class="col-sm-3 control-label">Search</label>

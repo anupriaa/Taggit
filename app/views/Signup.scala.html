@@ -1,0 +1,9 @@
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, signupForm: Form[views.formdata.SignupFormData])
+
+@import bootstrap3._
+
+@Main(page, isLoggedIn, userInfo) {
+    <div class="container">
+    @signupform(routes.Application.postSignup(), signupForm("email"), signupForm("password"))
+    </div>
+}

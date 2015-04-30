@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class Entry extends Model {
   @OneToMany(mappedBy = "entry", cascade = CascadeType.PERSIST)
   private ArrayList<Keywords> keywords;
 
+  @ManyToOne(mappedBy = "entry", cascade = CascadeType.PERSIST)
+  private UserInfo userInfo;
+
   /**
    * Constructor to initialize the entry.
    * @param entryType the type of entry.
@@ -38,11 +42,12 @@ public class Entry extends Model {
    * @param keywords List of Keyword instances.
    * @param urlInfo  Instance of entity UrlInfo.
    */
-  public Entry(String entryType, String timestamp, ArrayList<Keywords> keywords, UrlInfo urlInfo) {
+  public Entry(String entryType, String timestamp, ArrayList<Keywords> keywords, UrlInfo urlInfo, UserInfo userInfo) {
     this.entryType = entryType;
     this.timestamp = timestamp;
     this.keywords = keywords;
     this.urlInfo = urlInfo;
+    this.userInfo = userInfo;
   }
 
   /**
