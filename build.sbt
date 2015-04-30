@@ -13,4 +13,5 @@ libraryDependencies ++= Seq(
   javaWs,
   jdbc,
   "org.postgresql" % "postgresql" % "9.3-1102-jdbc4",
+  "com.feth" %% "play-authenticate" % "0.6.8"
 )
