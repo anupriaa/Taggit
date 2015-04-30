@@ -5,6 +5,7 @@ import models.UrlInfo;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import providers.MyUsernamePasswordAuthProvider;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.html.EnterUrl;
@@ -93,6 +94,9 @@ public class Application extends Controller {
 
   ///login part from here
 
+  public static Result login() {
+    return ok(login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
+  }
 
   public static Result doLogin() {
     com.feth.play.module.pa.controllers.Authenticate.noCache(response());
