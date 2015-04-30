@@ -1,0 +1,39 @@
+@(contactForm: Form[views.formdata.LoginFormData])
+
+@import helper._
+@import bootstrap3._
+@import com.feth.play.module.pa.views.html._
+
+@Main("Login") {
+    <div class="container">
+        @form(com.feth.play.module.pa.controllers.Authenticate.doLogin(), 'class -> "form-horizontal formBody") {
+                <!-- url -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-7">
+                        <input type="email" class="form-control"
+                        name ="email"
+                        id="email"
+                        placeholder="Please enter your email.">
+                </div>
+                <label class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-7">
+                    <input type="password" class="form-control"
+                    name ="password"
+                    id="password"
+                    placeholder="Please enter your password.">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <button id="submit" type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+            <div>
+            @forProviders() { p =>
+                <a href="@p.getUrl()">@p.getKey()</a>
+            }
+            </div>
+        }
+    </div>
+}

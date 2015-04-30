@@ -1,12 +1,15 @@
 package controllers;
 
+import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import models.UrlInfo;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.html.EnterUrl;
 //import views.html.Index;
+import views.html.Login;
 import views.html.Search;
 
 import java.util.ArrayList;
@@ -85,6 +88,22 @@ public class Application extends Controller {
       else {
         return badRequest(Search.render(searchFormData, urlList));
       }
+    }
+  }
+
+  ///login part from here
+
+
+  public static Result doLogin() {
+    com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+    Form<LoginFormData> loginForm = com.feth.play.module.pa.providers.
+        .bindFromRequest();
+    if (loginForm.hasErrors()) {
+      // User did not fill everything properly
+      return badRequest(Login.render(loginForm));
+    } else {
+      // Everything was filled
+      return UsernamePasswordAuthProvider.handleLogin(ctx());
     }
   }
 }

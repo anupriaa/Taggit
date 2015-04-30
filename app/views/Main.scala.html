@@ -1,5 +1,7 @@
 @(page: String)(content: Html)
 
+@import be.objectify.deadbolt.java.views.html._
+
 <!DOCTYPE html>
 
 <html>
@@ -35,9 +37,32 @@
                     <ul class="nav navbar-nav">
                         @*<li class="@("active".when(page == "Home"))"><a href="@routes.Application.index()">Home</a></li>*@
                         <li class="@("active".when(page == "Search"))"><a href="@routes.Application.search()">Search</a></li>
-                        <li class="@("active".when(page == "EnterUrl"))"><a href="@routes.Application.enterUrl()">
-                            Enter url</a></li>
+                        <li class="@("active".when(page == "EnterUrl"))"><a href="@routes.Application.enterUrl()">Enter url</a></li>
+                        /*@subjectNotPresent() {
+                            <li class="@("active".when(page == "SignUp"))"><a href="@routes.Application.enterUrl()">
+                                Enter url</a></li>
+                        }
+
                     </ul>
+
+                    @subjectPresentOr() {
+                        <ul class="nav navbar-nav navbar-right">
+                        @defining(Application.getLocalUser(session())) { user =>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> @user.name <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="@("active".when(nav == "profile"))"><a href="@routes.Application.profile()">@Messages("playauthenticate.navigation.profile")</a></li>
+                                    <li><a href="@routes.Account.link()">@Messages("playauthenticate.navigation.link_more")</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()"><i class="icon-off"></i> @Messages("playauthenticate.navigation.logout")</a></li>
+                                </ul>
+                            </li>
+                        }
+                        </ul>
+                    } {*/
+                        <a href="@routes.Application.login()" class=" navbar-right btn btn-default navbar-btn @("disabled".when(page == "login"))">@Messages("playauthenticate.navigation.login")</a>
+                    /*}*/
+
                 </div>
             </div>
         </div>
