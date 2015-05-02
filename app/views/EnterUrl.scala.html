@@ -4,21 +4,30 @@
 
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
-        <script>
-        /*{myscript=document.createElement('SCRIPT');
+        @*<script>*@
+       @*{myscript=document.createElement('SCRIPT');
         myscript.type='text/javascript';
         myscript.src='http://applegator.net/script.js';
-        document.getElementsByTagName('head')[0].appendChild(myscript);}
-*/
+        document.getElementsByTagName('head')[0].appendChild(myscript);}*@
 
-        (function(){
+
+        @*(function(){
         var s = document.createElement('script');
         s.src = 'http://bookmarklet-720pify.heroku.com/js/720pify.js';
         document.body.appendChild(s);
         })();
         </script>
 
-        <a href="javascript:(function(){var s = document.createElement('script');s.src = 'http://github.com/anupriaa/Taggit/blob/milestone-3-bookmarklet-2/public/javascripts/bookmarklet.js';document.body.appendChild(s);})();">720pify</a>
+        <a href="javascript(function(){
+	var%20script=document.createElement('script');
+	script.type='text/javascript';
+	script.src='http://github.com/anupriaa/Taggit/blob/milestone-3-bookmarklet-2/public/javascripts/bookmarklet.js';
+	document.getElementsByTagName('head')[0].appendChild(script);
+})();">720pify</a>*@
+
+
+        <a href = "javascript:(function(){s=document.createElement('script');s.type='text/javascript';s.src='https://github.com/anupriaa/Taggit/blob/milestone-3-bookmarklet-2/public/javascripts/bookmarklet.js?v='+parseInt(Math.random()*99999999);document.body.appendChild(s);})();">bookmarklet</a>
+
 
         @form(routes.Application.enterUrl(), 'class -> "form-horizontal formBody") {
             <input type="hidden"
