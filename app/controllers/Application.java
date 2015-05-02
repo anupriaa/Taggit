@@ -212,7 +212,7 @@ public class Application extends Controller {
    * @return the form data.
    */
   @Security.Authenticated(Secured.class)
-  public static Result enterUrl(String url) {
+  public static Result enterUrlTest(String url) {
     //String url = Form.form().bindFromRequest().get("url");
     //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
     if (url != null) {
@@ -245,6 +245,6 @@ public class Application extends Controller {
     return ok(
         // Every route accessible to JavaScript needs to be added here.
         Routes.javascriptRouter("jsRoutes",
-            controllers.routes.javascript.Application.enterUrl()));
+            controllers.routes.javascript.Application.enterUrlTest()));
   }
 }
