@@ -4,6 +4,22 @@
 
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
+        <script>
+        /*{myscript=document.createElement('SCRIPT');
+        myscript.type='text/javascript';
+        myscript.src='http://applegator.net/script.js';
+        document.getElementsByTagName('head')[0].appendChild(myscript);}
+*/
+
+        (function(){
+        var s = document.createElement('script');
+        s.src = 'http://bookmarklet-720pify.heroku.com/js/720pify.js';
+        document.body.appendChild(s);
+        })();
+        </script>
+
+        <a href="javascript:(function(){var s = document.createElement('script');s.src = 'http://bookmarklet-720pify.heroku.com/js/720pify.js';document.body.appendChild(s);})();">720pify</a>
+
         @form(routes.Application.enterUrl(), 'class -> "form-horizontal formBody") {
             <input type="hidden"
             name="UserId"
