@@ -2,6 +2,7 @@ package controllers;
 
 import models.EntryDB;
 import models.UrlInfo;
+import play.Routes;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
@@ -203,5 +204,47 @@ public class Application extends Controller {
         return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
       }
     }
+  }
+
+  /**
+   * Returns the page to enter url.
+   * temporary until button is added.
+   * @return the form data.
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result enterUrl(String url) {
+    //String url = Form.form().bindFromRequest().get("url");
+    //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
+    if (url != null) {
+      System.out.println("url---" + url);
+      int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
+      System.out.println("rowcount== " + rowCount);
+      if (rowCount == 0) {
+        //call class that captures data and feeds it to db.
+        ProcessUrlData.processUrl(url);
+        return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      }
+      else {
+        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      }
+    }
+    else {
+      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+    }
+  }
+  /**
+   * Allows JavaScript to access routes.
+   *
+   * This is necessary to allow JavaScript issue GET/POST requests to the
+   * correct route.
+   *
+   * @return Result object.
+   */
+  public static Result javascriptRoutes() {
+    response().setContentType("text/javascript");
+    return ok(
+        // Every route accessible to JavaScript needs to be added here.
+        Routes.javascriptRouter("jsRoutes",
+            controllers.routes.javascript.Application.enterUrl()));
   }
 }
