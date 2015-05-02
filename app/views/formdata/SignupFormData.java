@@ -1,5 +1,6 @@
 package views.formdata;
 
+import models.EntryDB;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class SignupFormData {
 
     if (email == null || email.length() == 0) {
       errors.add(new ValidationError("email", "Please enter an email address."));
+    }
+
+    if(EntryDB.isUser(email)) {
+      errors.add(new ValidationError("email", "Email already exists."));
     }
 
     if (password == null || password.length() == 0) {

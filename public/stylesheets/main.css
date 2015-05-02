@@ -40,3 +40,6 @@ body {
 .table-bordered{
     border-color: #B1C0E6;
 }
+.text-danger{
+    font-size: 24px;
+}

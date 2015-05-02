@@ -7,6 +7,7 @@ create table entry (
   entry_id                  bigint not null,
   entry_type                varchar(255),
   timestamp                 varchar(255),
+  email                     varchar(255),
   user_info_id              bigint,
   constraint pk_entry primary key (entry_id))
 ;

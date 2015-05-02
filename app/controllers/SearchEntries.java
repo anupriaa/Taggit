@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Entry;
 import models.Keywords;
 import models.UrlInfo;
 import play.mvc.Controller;
@@ -19,6 +20,7 @@ public class SearchEntries extends Controller {
   public static List<UrlInfo> searchUrl(ArrayList<String> queryKeywords) {
 
     ArrayList<Long> keywordIdList = new ArrayList<Long>();
+    ArrayList<Long> finalIdList = new ArrayList<Long>();
 
     List<Keywords> idList = Keywords.find()
                     .select("keywordEntryId")
@@ -30,7 +32,20 @@ public class SearchEntries extends Controller {
     for (Keywords keywords : idList) {
       keywordIdList.add(keywords.getKeywordEntryId());
     }
-    List<UrlInfo> urlList = UrlInfo.find().select("url").where().in("urlEntryId", keywordIdList).findList();
+    System.out.println("keywordIdList---"+keywordIdList);
+    String email = Secured.getUser(ctx());
+    System.out.println("LOgged in user in search--" + email);
+    List<Entry> entryIdList = Entry.find()
+                            .select("entryId")
+                            .where()
+                            .eq("email", email)
+                            .in("entryId", keywordIdList)
+                            .findList();
+    for (Entry entry : entryIdList) {
+      finalIdList.add(entry.getEntryId());
+    }
+    System.out.println("finalIdList---"+finalIdList);
+    List<UrlInfo> urlList = UrlInfo.find().select("url").where().in("urlEntryId", finalIdList).findList();
     /*ArrayList<String> urls = new ArrayList<String>();
     for (UrlInfo urlInfo : urlList) {
       urls.add(urlInfo.getUrl());

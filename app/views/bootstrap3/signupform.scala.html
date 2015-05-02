@@ -12,7 +12,7 @@ Clients should set the "error" key in flash scope to provide feedback on errors.
     <div class="col-sm-6">
        @* <div class="panel panel-default">*@
             @*<div class="panel-heading">*@
-                <h3 >To Create a New Account, please fill in your Email and Password</h3>
+
             @*</div>*@
             @*<div class="panel-body">*@
                 @helper.form(reverseRoute, 'role -> "form") {
@@ -35,9 +35,11 @@ Clients should set the "error" key in flash scope to provide feedback on errors.
                             placeholder="Password"
                             type="password">
                         </div>
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Signup">
+                        <input class="btn btn-default" type="submit" value="Signup">
                     </fieldset>
                 }
+                <br/>
+                <br/>
                 @if(flash.size() > 0){
                     <div class="alert-alert error text-danger">
                     @for((key, value) <- flash){

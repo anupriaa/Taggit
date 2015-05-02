@@ -25,12 +25,15 @@ import java.util.List;
  */
 public class Application extends Controller {
 
+  public static boolean isSearchResult = false;
+
   /**
    * Returns the home page.
    *
    * @return The resulting home page.
    */
   public static Result index() {
+    //session().clear();
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
 
@@ -141,14 +144,14 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result enterUrl() {
     String url = Form.form().bindFromRequest().get("url");
-    Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
+    //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
     if (url != null) {
       System.out.println("url---" + url);
       int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
       System.out.println("rowcount== " + rowCount);
       if (rowCount == 0) {
         //call class that captures data and feeds it to db.
-        ProcessUrlData.processUrl(url , userId);
+        ProcessUrlData.processUrl(url);
         return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
       else {
@@ -166,10 +169,11 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result search() {
+    isSearchResult = false;
     List<UrlInfo> urlList = new ArrayList<>();
     SearchFormData data = new SearchFormData();
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
-    return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
+    return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
   }
 
   /**
@@ -178,22 +182,25 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result searchResult() {
+    isSearchResult = true;
     List<UrlInfo> urlList = new ArrayList<>();
 
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
     if (searchFormData.hasErrors()) {
-      return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
+      return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
     }
     else {
       String queryData = Form.form().bindFromRequest().get("queryData");
+      System.out.println("queryData in application---" + queryData);
       if (queryData != null) {
         ArrayList<String> queryKeywords = new ArrayList<>();
-        Collections.addAll(queryKeywords, queryData.split("\\W"));
+        Collections.addAll(queryKeywords, queryData.toLowerCase().split("\\W"));
+        System.out.println("query arraylist--"+queryKeywords);
         urlList = SearchEntries.searchUrl(queryKeywords);
-        return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
+        return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
       }
       else {
-        return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList));
+        return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
       }
     }
   }

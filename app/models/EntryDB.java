@@ -1,7 +1,10 @@
 package models;
 
+import controllers.Secured;
 import org.mindrot.jbcrypt.BCrypt;
+import play.mvc.Http;
 
+import javax.naming.Context;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,7 +82,7 @@ public class EntryDB {
    * @param url       the url.
    */
 
-  public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url, Long userId) {
+  public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url,Http.Context context) {
 
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
@@ -89,10 +92,15 @@ public class EntryDB {
 
     }
     UrlInfo urlInfo = new UrlInfo(urlType, url);
-    UserInfo userInfo = getUser(userId);
+    String email = Secured.getUser(context);
+    UserInfo userInfo = getUser(email);
     Entry entry = new Entry(entryType, timeStamp, keywordList, urlInfo, userInfo);
+    //get logged in users email.
+    System.out.println("email of logged in ---" + Secured.getUser(context));
+    entry.setEmail(email);
 
     entry.setUrlInfo(urlInfo);
+    entry.setUserInfo(userInfo);
     urlInfo.setEntry(entry);
 
     entry.setKeywords(keywordList);
