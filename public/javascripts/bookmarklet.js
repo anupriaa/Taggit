@@ -40,8 +40,8 @@
             }
         }
     }*/
-    
-    jsRoutes.controllers.Application.enterUrl(location.href).ajax({
+
+    jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
         type: "POST",
         success: function(data) {
             alert("Success");
