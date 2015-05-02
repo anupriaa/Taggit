@@ -222,14 +222,14 @@ public class Application extends Controller {
       if (rowCount == 0) {
         //call class that captures data and feeds it to db.
         ProcessUrlData.processUrl(url);
-        return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        return ok(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
       else {
-        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        return badRequest(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
     }
     else {
-      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      return badRequest(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
   /**
