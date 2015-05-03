@@ -33,7 +33,7 @@ var jsRemoteSidebar = function() {
         return undefined;
     }
 
-    if (/^https/i.test(document.location.href)) {
+    /*if (/^https/i.test(document.location.href)) {
         // If you remove this block, your script WILL work on encrypted sites
         // but it really shouldn't.  Reading secured sites is also a legal liability.
         // if you take data from an encrypted page even with angelic intentions and
@@ -44,7 +44,7 @@ var jsRemoteSidebar = function() {
         alert('This service will not work on encrypted sites.');
         return undefined;
     }
-
+*/
     ajaxObject = function (url, callbackFunction) {
         // see http://www.hunlock.com/blogs/The_Ultimate_Ajax_Object
         // for documentation on this ajax object
