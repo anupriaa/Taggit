@@ -198,9 +198,7 @@ var jsRemoteSidebar = function() {
 
 
 
-(function() {
 
-alert("HERE");
    /* var httpRequest;
     url="http://localhost:9000/EnterUrl";
     //document.getElementById("ajaxButton").onclick = function() { makeRequest('test.html'); };
@@ -240,8 +238,8 @@ alert("HERE");
             }
         }
     }*/
-
-
+(function() {
+    alert("HERE");
     jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
         type: "POST",
         success: function(data) {
