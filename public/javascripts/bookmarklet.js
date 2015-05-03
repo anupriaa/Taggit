@@ -201,7 +201,7 @@ var jsRemoteSidebar = function() {
 (function() {
 
 alert("HERE");
-    var httpRequest;
+   /* var httpRequest;
     url="http://localhost:9000/EnterUrl";
     //document.getElementById("ajaxButton").onclick = function() { makeRequest('test.html'); };
 
@@ -239,10 +239,10 @@ alert("HERE");
                 alert('There was a problem with the request.');
             }
         }
-    }
+    }*/
 
 
-    /*jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
+    jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
         type: "POST",
         success: function(data) {
             alert("Success");
@@ -254,6 +254,6 @@ alert("HERE");
             console.debug("Error of ajax Call");
             console.debug(err);
         }
-    })*/
+    })
 })();
 
