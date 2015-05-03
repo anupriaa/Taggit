@@ -2,6 +2,7 @@
  * Created by Anupriya on 5/1/2015.
  */
 
+/*
 var jsRemoteSidebar = function() {
 
     // This block, until the return statement, is private
@@ -33,7 +34,8 @@ var jsRemoteSidebar = function() {
         return undefined;
     }
 
-    /*if (/^https/i.test(document.location.href)) {
+    */
+/*if (/^https/i.test(document.location.href)) {
         // If you remove this block, your script WILL work on encrypted sites
         // but it really shouldn't.  Reading secured sites is also a legal liability.
         // if you take data from an encrypted page even with angelic intentions and
@@ -44,7 +46,8 @@ var jsRemoteSidebar = function() {
         alert('This service will not work on encrypted sites.');
         return undefined;
     }
-*/
+*//*
+
     ajaxObject = function (url, callbackFunction) {
         // see http://www.hunlock.com/blogs/The_Ultimate_Ajax_Object
         // for documentation on this ajax object
@@ -188,15 +191,16 @@ var jsRemoteSidebar = function() {
     }
 
 }();
+*/
 
 // note the trailing (), it tells the function to run (but you knew that already!)
 
 
-/*
+
 
 (function() {
-    */
-/*alert("HERE");
+
+alert("HERE");
     var httpRequest;
     url="http://localhost:9000/EnterUrl";
     //document.getElementById("ajaxButton").onclick = function() { makeRequest('test.html'); };
@@ -233,10 +237,10 @@ var jsRemoteSidebar = function() {
                 alert('There was a problem with the request.');
             }
         }
-    }*//*
+    }
 
 
-    jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
+    /*jsRoutes.controllers.Application.enterUrlTest(location.href).ajax({
         type: "POST",
         success: function(data) {
             alert("Success");
@@ -248,6 +252,6 @@ var jsRemoteSidebar = function() {
             console.debug("Error of ajax Call");
             console.debug(err);
         }
-    })
+    })*/
 })();
-*/
+
