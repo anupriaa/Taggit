@@ -206,6 +206,7 @@ alert("HERE");
     //document.getElementById("ajaxButton").onclick = function() { makeRequest('test.html'); };
 
     function makeRequest(url) {
+        alert("INSIDE MAKE REQUEST");
         if (window.XMLHttpRequest) { // Mozilla, Safari, ...
             httpRequest = new XMLHttpRequest();
         } else if (window.ActiveXObject) { // IE
@@ -227,6 +228,7 @@ alert("HERE");
         httpRequest.onreadystatechange = alertContents;
         httpRequest.open('GET', url);
         httpRequest.send("url='+encodeURIComponent(location.href)");
+        alert("REQUEST SENT");
     }
 
     function alertContents() {
