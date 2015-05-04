@@ -30,12 +30,11 @@
 
         @*<a href="javascript:(function(){var%20u='http://localhost:9000/EnterUrl?url='+escape(document.location.href);var%20a=function(){if(!window.open(u))location.href=u;};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})();">book</a>*@
 
-        <
-        @if(isLoggedIn) {
-            <h1>Successfully added</h1>
-        }
-        else {
+            @if(isLoggedIn) {
+                <h1>Successfully added</h1>
+            }
+            else {
             <h1>Please log in </h1>
-        }
+            }
     </div>
 }

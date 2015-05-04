@@ -11,6 +11,7 @@ import play.mvc.Security;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.formdata.SignupFormData;
+import views.html.Bookmarklet;
 import views.html.EnterUrl;
 import views.html.Index;
 import views.html.Login;
@@ -211,7 +212,7 @@ public class Application extends Controller {
    * temporary until button is added.
    * @return the form data.
    */
-  @Security.Authenticated(Secured.class)
+  //@Security.Authenticated(Secured.class)
   public static Result enterUrlTest(String url) {
     //String url = Form.form().bindFromRequest().get("url");
     //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
@@ -222,14 +223,14 @@ public class Application extends Controller {
       if (rowCount == 0) {
         //call class that captures data and feeds it to db.
         ProcessUrlData.processUrl(url);
-        return ok(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        return ok(Bookmarklet.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
       else {
-        return badRequest(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+        return badRequest(Bookmarklet.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
       }
     }
     else {
-      return badRequest(EnterUrl.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      return badRequest(Bookmarklet.render("Bookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
   /**
@@ -244,8 +245,7 @@ public class Application extends Controller {
     response().setContentType("text/javascript");
     return ok(
         // Every route accessible to JavaScript needs to be added here.
-        Routes.javascriptRouter("jsRoutes",
-            controllers.routes.javascript.Application.enterUrlTest()));
+        Routes.javascriptRouter("appRoutes" , controllers.routes.javascript.Application.enterUrlTest()));
   }
 
   /*
