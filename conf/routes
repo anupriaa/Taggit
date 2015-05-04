@@ -17,7 +17,6 @@ GET         /signup                           controllers.Application.signup()
 POST        /signup                           controllers.Application.postSignup()
 
 GET         /Bookmarklet/:url                 controllers.Application.enterUrlTest(url: String)
-GET   /jsRoutes                                                 @controllers.Application.jsRoutes()
 
 # Javascript routing
 GET         /assets/javascripts/routes        controllers.Application.jsRoutes()
