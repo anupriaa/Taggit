@@ -234,5 +234,14 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../public/javascripts" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
