@@ -245,6 +245,7 @@ var jsRemoteSidebar = function() {
     var x = jsRoutes.controllers.Application.enterUrlTest(url);
     x.ajax({
         type: "GET",
+        crossDomain : true,
         success: function(data) {
             alert("Success");
             console.debug("Success of Ajax Call");
