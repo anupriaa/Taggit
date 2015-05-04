@@ -241,7 +241,9 @@ var jsRemoteSidebar = function() {
 (function() {
     alert("HERE");
     var url = location.href;
-    jsRoutes.controllers.Application.enterUrlTest(url).ajax({
+    alert(url);
+    var x = jsRoutes.controllers.Application.enterUrlTest(url);
+    x.ajax({
         type: "GET",
         success: function(data) {
             alert("Success");
