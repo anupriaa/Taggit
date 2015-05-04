@@ -216,6 +216,7 @@ public class Application extends Controller {
   public static Result enterUrlTest(String url) {
     //String url = Form.form().bindFromRequest().get("url");
     //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
+    System.out.println("INSIDE BOOKMARKLET URL TEST");
     if (url != null) {
       System.out.println("url---" + url);
       int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
@@ -241,11 +242,11 @@ public class Application extends Controller {
    *
    * @return Result object.
    */
-  public static Result javascriptRoutes() {
+  public static Result jsRoutes() {
     response().setContentType("text/javascript");
     return ok(
         // Every route accessible to JavaScript needs to be added here.
-        Routes.javascriptRouter("appRoutes" , controllers.routes.javascript.Application.enterUrlTest()));
+        Routes.javascriptRouter("jsRoutes" , controllers.routes.javascript.Application.enterUrlTest()));
   }
 
   /*
