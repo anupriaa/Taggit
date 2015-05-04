@@ -4,7 +4,7 @@
     var url = location.href;
     alert(url);
     //var x = jsroutes.controllers.Application.enterUrlTest(url);
-    $.ajax({
+    ajax({
         url : "http://localhost:9000/EnterUrl?url="+url,
         crossDomain : true,
         success: function(data) {
