@@ -40,12 +40,12 @@ javascript: (function(e, t) {
         var i = "http://localhost:9000/EnterUrl?",
             s = n.createElement("iframe");
         s.id = t;
-        s.src = i "url="
+        s.src = i + "url="
         encodeURIComponent(e.location.href)
         "&title="
         encodeURIComponent(n.title)
         "&note="
-        encodeURIComponent("" (e.getSelection ? e.getSelection() : n.getSelection ? n.getSelection() : n.selection.createRange().text))
+        encodeURIComponent("" + (e.getSelection ? e.getSelection() : n.getSelection ? n.getSelection() : n.selection.createRange().text))
         "&v=1.1";
         s.style.position = "fixed";
         s.style.top = "0";
