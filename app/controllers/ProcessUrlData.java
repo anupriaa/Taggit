@@ -31,6 +31,10 @@ public class ProcessUrlData extends Controller {
    */
   public static ArrayList<String> keywords = new ArrayList<String>();
   /**
+   * ArrayList to store relevance of each keyword.
+   */
+  public static ArrayList<Double> keywordRelevance = new ArrayList<Double>();
+  /**
    * Stores the type of entry - url or text.
    */
   public static String entryType = "url";
@@ -54,7 +58,7 @@ public class ProcessUrlData extends Controller {
       urlType = "image";
       extractImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url, ctx());
+      EntryDB.addEntry(entryType, keywords, keywordRelevance, urlType, url, ctx());
       //keywords.clear();
     }
     else {
@@ -66,7 +70,7 @@ public class ProcessUrlData extends Controller {
       //to extract info of main image n the page
       extractMainImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url, ctx());
+      EntryDB.addEntry(entryType, keywords, keywordRelevance, urlType, url, ctx());
       //keywords.clear();
     }
   }
@@ -82,6 +86,10 @@ public class ProcessUrlData extends Controller {
       //get meta keyword content
       String keywords = doc.select("meta[name=keywords]").first().attr("content");
       ProcessUrlData.keywords = new ArrayList<String>(Arrays.asList(keywords.split(",")));
+      System.out.println("length---"+ProcessUrlData.keywords.size());
+      for (int i = 0; i < ProcessUrlData.keywords.size(); i++) {
+        keywordRelevance.add(i, 1.0);
+      }
 
       //get meta description content
       String description = doc.select("meta[name=description]").get(0).attr("content");
@@ -120,6 +128,8 @@ public class ProcessUrlData extends Controller {
         JSONArray array = respObj.getJSONArray("keywords");
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
+          keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("relevance")));
+          System.out.println("Relevance text---"+array.getJSONObject(i).getString("relevance"));
         }
       }
     }
@@ -167,9 +177,11 @@ public class ProcessUrlData extends Controller {
           .asJson();
       JSONObject respObj = response.getBody().getObject();
       if (respObj.getString("status").equals("OK")) {
-        JSONArray array = respObj.getJSONArray("imageKeywords");
+          JSONArray array = respObj.getJSONArray("imageKeywords");
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
+          keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("score")));
+          System.out.println("Relevance image---"+array.getJSONObject(i).getString("score"));
         }
       }
     }

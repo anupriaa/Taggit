@@ -15,6 +15,7 @@ public class Keywords extends Model {
   private long id;
   private String keyword = "";
   private long keywordEntryId;
+  private double keywordRelevance;
   @ManyToOne
   private Entry entry;
 
@@ -22,8 +23,9 @@ public class Keywords extends Model {
    * Constructor to initialize attributes.
    * @param keyword the keywords associated with the entries.
    */
-  public Keywords(String keyword) {
+  public Keywords(String keyword, double keywordRelevance) {
     this.keyword = keyword;
+    this.keywordRelevance = keywordRelevance;
   }
 
   /**
@@ -103,5 +105,19 @@ public class Keywords extends Model {
    */
   public void setKeywordEntryId(long keywordEntryId) {
     this.keywordEntryId = keywordEntryId;
+  }
+  /**
+   * Gets the keywordRelevance for this keyword..
+   * @return  keywordRelevance the keywordRelevance for this keyword.
+   */
+  public double getKeywordRelevance() {
+    return keywordRelevance;
+  }
+  /**
+   * Sets the keywordRelevance for this keyword..
+   * @param keywordRelevance the keywordRelevance for this keyword.
+   */
+  public void setKeywordRelevance(int keywordRelevance) {
+    this.keywordRelevance = keywordRelevance;
   }
 }

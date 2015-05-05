@@ -1,7 +1,10 @@
 package controllers;
 
 import models.EntryDB;
+import models.Keywords;
 import models.UrlInfo;
+import org.mcavallo.opencloud.Cloud;
+import org.mcavallo.opencloud.Tag;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
@@ -15,10 +18,20 @@ import views.html.Index;
 import views.html.Login;
 import views.html.Search;
 import views.html.Signup;
+import wordcloud.CollisionMode;
+import wordcloud.WordCloud;
+import wordcloud.WordFrequency;
+import wordcloud.bg.PixelBoundryBackground;
+import wordcloud.font.scale.LinearFontScalar;
+import wordcloud.nlp.FrequencyAnalizer;
+import wordcloud.palette.ColorPalette;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.io.InputStream;
 
 /**
  * Provides controllers for this application.
@@ -34,6 +47,10 @@ public class Application extends Controller {
    */
   public static Result index() {
     //session().clear();
+    //buildCloud();
+    List<Tag> tag = cloud();
+    //cloud();
+
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
 
@@ -203,5 +220,71 @@ public class Application extends Controller {
         return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
       }
     }
+  }
+
+  public static void buildCloud() {
+    System.out.println("INSIDE BUILD");
+    List<String> keywords = new ArrayList<String>();
+    List<Keywords> list = Keywords.find()
+                          .select("keyword")
+                          .where()
+                          .findList();
+    for (Keywords keyword: list) {
+      keywords.add(keyword.getKeyword());
+    }
+    try {
+      final FrequencyAnalizer frequencyAnalizer = new FrequencyAnalizer();
+      frequencyAnalizer.setWordFrequencesToReturn(300);
+      frequencyAnalizer.setMinWordLength(4);
+      //frequencyAnalizer.setStopWords(loadStopWords());
+
+      final List<WordFrequency> wordFrequencies = frequencyAnalizer.load(keywords);
+      //System.out.println("list=====00"+Arrays.toString(list.toArray()));
+      final WordCloud wordCloud = new WordCloud(500, 312, CollisionMode.PIXEL_PERFECT);
+      wordCloud.setPadding(2);
+      System.out.println("Before back");
+      try {
+        wordCloud.setBackground(new PixelBoundryBackground(getInputStream("public/images/TagIt.png")));
+      } catch (Exception e) {
+        System.out.println("e.p");
+        e.printStackTrace();
+      }
+      System.out.println("Afer back");
+      wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1), new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
+      wordCloud.setFontScalar(new LinearFontScalar(10, 40));
+      wordCloud.build(wordFrequencies);
+      System.out.println("Before writing");
+      wordCloud.writeToFile("public/images/Taggit_wordcloud_small.png");
+      System.out.println("After writing");
+    }
+    catch (Exception e) {
+      System.out.print("Exception" + e);
+    }
+  }
+  private static InputStream getInputStream(String path) {
+    return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+  }
+  public static List cloud() {
+    Cloud cloud = new Cloud();  // create cloud
+    cloud.setMaxWeight(38.0);   // max font size
+    cloud.setWordPattern("circle");
+    cloud.setTagCase(Cloud.Case.CAPITALIZATION);
+    System.out.println("INSIDE CLOUD");
+    //List<String> keywords = new ArrayList<String>();
+    List<Keywords> list = Keywords.find()
+                        .select("keyword")
+                        .select("score")
+                        .where()
+                        .findList();
+
+    for (Keywords keyword: list) {
+      //keywords.add(keyword.getKeyword());
+      Long id = Keywords.find().select("keywordEntryId").where().eq("keyword",keyword.getKeyword()).findUnique().getId();
+      String url = UrlInfo.find().select("url").where().eq("entryId",id).findUnique().getUrl();
+      Tag tag = new Tag(keyword.getKeyword(),url);   // creates a tag
+      cloud.addTag(tag);
+    }
+    return(cloud.allTags());
+
   }
 }
