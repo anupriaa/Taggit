@@ -43,7 +43,7 @@ javascript: (function(e, t) {
         s.src = i + "url=" +
         encodeURIComponent(e.location.href) +
         "&title=" +
-        encodeURIComponent(n.title) 
+        encodeURIComponent(n.title)
         ;
         s.style.position = "fixed";
         s.style.top = "0";
