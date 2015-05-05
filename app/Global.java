@@ -28,11 +28,13 @@ public class Global extends GlobalSettings {
 
   private class ActionWrapper extends Action.Simple {
     public ActionWrapper(Action<?> action) {
-      this.delegate = action;
+
+      System.out.println("1");this.delegate = action;
     }
 
     @Override
     public Promise<Result> call(Http.Context ctx) throws java.lang.Throwable {
+      System.out.println("2");
       Promise<Result> result = this.delegate.call(ctx);
       Http.Response response = ctx.response();
       response.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,6 +47,7 @@ public class Global extends GlobalSettings {
   */
   @Override
   public Action<?> onRequest(Http.Request request, java.lang.reflect.Method actionMethod) {
+    System.out.println("3");
     return new ActionWrapper(super.onRequest(request, actionMethod));
   }
 
@@ -52,6 +55,7 @@ public class Global extends GlobalSettings {
     final private play.api.mvc.Result wrappedResult;
 
     public CORSResult(Status status) {
+      System.out.println("4");
       List<Tuple2<String, String>> list = new ArrayList<Tuple2<String, String>>();
       Tuple2<String, String> t = new Tuple2<String, String>("Access-Control-Allow-Origin","*");
       list.add(t);
@@ -60,6 +64,7 @@ public class Global extends GlobalSettings {
     }
 
     public play.api.mvc.Result toScala() {
+      System.out.println("5");
       return this.wrappedResult;
     }
   }

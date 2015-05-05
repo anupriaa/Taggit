@@ -5,13 +5,13 @@
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
        <h1>HOME PAGE</h1>
-        <a href='javascript:(
+        <a id= "bk" href='javascript:(
    function() {
       try {
          jsRemoteSidebar.toggle();
       } catch (err) {
          var s=document.createElement("script");
-             s.src="http://rawgit.com/anupriaa/Taggit/milestone-3-bookmarklet-2/public/javascripts/main.js";
+             s.src="https://rawgit.com/anupriaa/Taggit/milestone-3-bookmarklet-2/public/javascripts/main.js";
          document.body.appendChild(s);
       }
    })();'>Book</a>
