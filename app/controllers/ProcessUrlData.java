@@ -5,31 +5,36 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import models.EntryDB;
-import models.UrlInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import play.mvc.Controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
  * Handles the html data from the entered URL.
  */
+<<<<<<< HEAD
 public class ProcessUrlData extends Controller  {
+=======
+public class ProcessUrlData extends Controller {
+>>>>>>> origin/milestone-3-bookmarklet-2
 
   /**
    * ArrayList to store associated keywords.
    */
   public static ArrayList<String> keywords = new ArrayList<String>();
+  /**
+   * ArrayList to store relevance of each keyword.
+   */
+  public static ArrayList<Double> keywordRelevance = new ArrayList<Double>();
   /**
    * Stores the type of entry - url or text.
    */
@@ -54,7 +59,8 @@ public class ProcessUrlData extends Controller  {
       urlType = "image";
       extractImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url);
+      EntryDB.addEntry(entryType, keywords, keywordRelevance, urlType, url, ctx());
+      //keywords.clear();
     }
     else {
       keywords = new ArrayList<>();
@@ -65,7 +71,8 @@ public class ProcessUrlData extends Controller  {
       //to extract info of main image n the page
       extractMainImageInfo(url);
       Collections.copy(keywords, removeWhiteSpaces(keywords));
-      EntryDB.addEntry(entryType, keywords, urlType, url);
+      EntryDB.addEntry(entryType, keywords, keywordRelevance, urlType, url, ctx());
+      //keywords.clear();
     }
   }
 
@@ -74,18 +81,44 @@ public class ProcessUrlData extends Controller  {
    * @param url The url entered by the user.
    */
   private static void extractMetaData(String url) {
+    boolean keywordPresent = true;
+    boolean descPresent = true;
     try {
       Document doc = Jsoup.connect(url).get();
 
       //get meta keyword content
-      String keywords = doc.select("meta[name=keywords]").first().attr("content");
-      ProcessUrlData.keywords = new ArrayList<String>(Arrays.asList(keywords.split(",")));
-
+      System.out.print("BEFORE META KEYWO");
+      try {
+        String keywords = doc.select("meta[name=keywords]").first().attr("content");
+        System.out.print("AFTER META KEYWO");
+        ProcessUrlData.keywords = new ArrayList<String>(Arrays.asList(keywords.split(",")));
+        System.out.println("length---" + ProcessUrlData.keywords.size());
+        for (int i = 0; i < ProcessUrlData.keywords.size(); i++) {
+          keywordRelevance.add(i, 1.0);
+        }
+      }
+      catch (Exception e) {
+        keywordPresent = false;
+        e.printStackTrace();
+        System.out.println("CATCH 111");
+      }
       //get meta description content
-      String description = doc.select("meta[name=description]").get(0).attr("content");
-      extractKeywords(description);
+      try {
+        String description = doc.select("meta[name=description]").get(0).attr("content");
+        System.out.println("description----" + description);
+        extractKeywords(description);
+      }
+      catch (Exception e) {
+        System.out.print("INSIDE DESC CATCH");
+        descPresent = false;
+        e.printStackTrace();
+      }
+      if (!keywordPresent && !descPresent) {
+        extractKeywordsFromUrl(url);
+      }
     }
-    catch (IOException e) {
+    catch (Exception e) {
+      System.out.println("INSIDE META DATA CATCH");
       System.out.println("Exception : " + e);
     }
 
@@ -98,6 +131,7 @@ public class ProcessUrlData extends Controller  {
    */
   private static void extractKeywords(String description) {
     try {
+      System.out.println("EXTRACT KEYWORD ");
       String endpoint = "http://access.alchemyapi.com/calls/text/TextGetRankedKeywords";
       String maxRetrieve = "5";
       String extractMode = "strict";
@@ -118,10 +152,51 @@ public class ProcessUrlData extends Controller  {
         JSONArray array = respObj.getJSONArray("keywords");
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
+          keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("relevance")));
         }
       }
     }
     catch (Exception e) {
+      System.out.println("EXTRACT KEYWORD EXCEPTION");
+      UnsupportedEncodingException en;
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Extracts the keywords from description of a website.
+   * Uses  an open-source library. http://unirest.io/java.
+   * @param url the url of the website.
+   */
+  private static void extractKeywordsFromUrl(String url) {
+    try {
+      System.out.println("EXTRACT KEYWORD URL");
+      String endpoint = "http://access.alchemyapi.com/calls/url/URLGetRankedKeywords";
+      String maxRetrieve = "5";
+      String extractMode = "strict";
+      String contentType = "application/x-www-form-urlencoded";
+      String headerAccept = "application/json";
+      String outputMode = "json";
+      HttpResponse<JsonNode> response = Unirest.post(endpoint)
+          .header("Content-Type", contentType)
+          .header("Accept", headerAccept)
+          .field("text", url)
+          .field("apikey", apiKey)
+          .field("maxRetrieve", maxRetrieve)
+          .field("keywordExtractMode", extractMode)
+          .field("outputMode", outputMode)
+          .asJson();
+      JSONObject respObj = response.getBody().getObject();
+      if (respObj.getString("status").equals("OK")) {
+        JSONArray array = respObj.getJSONArray("keywords");
+        for (int i = 0; i < array.length(); i++) {
+          keywords.add(array.getJSONObject(i).getString("text"));
+          keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("relevance")));
+        }
+      }
+    }
+    catch (Exception e) {
+      System.out.println("EXTRACT KEYWORD EXCEPTION");
       UnsupportedEncodingException en;
       e.printStackTrace();
     }
@@ -165,9 +240,10 @@ public class ProcessUrlData extends Controller  {
           .asJson();
       JSONObject respObj = response.getBody().getObject();
       if (respObj.getString("status").equals("OK")) {
-        JSONArray array = respObj.getJSONArray("imageKeywords");
+          JSONArray array = respObj.getJSONArray("imageKeywords");
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
+          keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("score")));
         }
       }
     }
@@ -215,7 +291,7 @@ public class ProcessUrlData extends Controller  {
   public static ArrayList<String> removeWhiteSpaces(ArrayList<String> keywords) {
     ArrayList<String> keywordList = new ArrayList<String>();
     for (String keyword: keywords) {
-      keywordList.add(keyword.trim());
+      keywordList.add(keyword.trim().toLowerCase());
     }
     return keywordList;
   }
