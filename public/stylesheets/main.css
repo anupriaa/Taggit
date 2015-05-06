@@ -1,6 +1,7 @@
 body {
     background-color: #B1C0E6;
     overflow :scroll
+    width: 2000px;
 
 }
 
@@ -32,7 +33,15 @@ body {
     background-color: #75548C;
     background-image: none;
     border-color: #75548C ;
+    position: relative;
+    margin: 0 auto;
+    width: 1903px;
 
+}
+.bottom{
+    background-color: #75548C;
+    width: 1903px;
+    height: 52px;
 }
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
@@ -58,7 +67,7 @@ body {
 .subText{
     font-family: 'IM Fell DW Pica', serif;
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     color: black;
     font-weight: bold;
 }
