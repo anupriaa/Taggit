@@ -3,12 +3,12 @@ package controllers;
 import models.EntryDB;
 import models.Keywords;
 import models.UrlInfo;
-<<<<<<< HEAD
+
 import play.Routes;
-=======
+
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
->>>>>>> origin/synonyms
+
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
@@ -33,7 +33,7 @@ import wordcloud.palette.ColorPalette;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Collections;
 import java.util.List;
 import java.io.InputStream;
@@ -227,7 +227,6 @@ public class Application extends Controller {
     }
   }
 
-<<<<<<< HEAD
   /**
    * Returns the page to enter url.
    * temporary until button is added.
@@ -279,7 +278,8 @@ public class Application extends Controller {
     response().setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
     response().setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
     return ok();
-=======
+  }
+
   public static void buildCloud() {
     System.out.println("INSIDE BUILD");
     List<String> keywords = new ArrayList<String>();
@@ -344,6 +344,5 @@ public class Application extends Controller {
     }
     return(cloud.allTags());
 
->>>>>>> origin/synonyms
   }
 }
