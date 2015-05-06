@@ -82,15 +82,21 @@ public class EntryDB {
    * @param url       the url.
    */
 
-  public static void addEntry(String entryType, ArrayList<String> keywords, String urlType, String url,Http.Context context) {
+  public static void addEntry(String entryType, ArrayList<String> keywords, ArrayList<Double> keywordRelevance, String urlType, String url,Http.Context context) {
+
+    /*for(double rel: keywordRelevance) {
+      System.out.println("Rele---"+rel);
+    }*/
 
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
     ArrayList<Keywords> keywordList = new ArrayList<>();
+    int i = 0;
     for (String keywordString : keywords) {
-      keywordList.add(new Keywords(keywordString));
-
+      keywordList.add(new Keywords(keywordString, keywordRelevance.get(i)));
+      i++;
     }
+
     UrlInfo urlInfo = new UrlInfo(urlType, url);
     String email = Secured.getUser(context);
     UserInfo userInfo = getUser(email);
@@ -108,12 +114,13 @@ public class EntryDB {
     entry.save();
     urlInfo.setUrlEntryId(entry.getEntryId());
     urlInfo.save();
-
+    i=0;
     for (String keywordString : keywords) {
-      Keywords keywords1 = new Keywords(keywordString);
+      Keywords keywords1 = new Keywords(keywordString, keywordRelevance.get(i));
       keywords1.setEntry(entry);
       keywords1.setKeywordEntryId(entry.getEntryId());
       keywords1.save();
+      i++;
     }
   }
 

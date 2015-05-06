@@ -16,6 +16,7 @@ create table keywords (
   id                        bigint not null,
   keyword                   varchar(255),
   keyword_entry_id          bigint,
+  keyword_relevance         float,
   entry_entry_id            bigint,
   constraint pk_keywords primary key (id))
 ;

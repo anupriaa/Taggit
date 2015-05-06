@@ -16,5 +16,9 @@ libraryDependencies ++= Seq(
   jdbc,
   "org.postgresql" % "postgresql" % "9.3-1102-jdbc4",
   "org.mindrot" % "jbcrypt" % "0.3m",
+<<<<<<< HEAD
   filters
+=======
+  "com.kennycason" % "kumo" % "1.1"
+>>>>>>> origin/synonyms
 )
