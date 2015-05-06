@@ -16,10 +16,10 @@ GET         /logout                           controllers.Application.logout()
 GET         /signup                           controllers.Application.signup()
 POST        /signup                           controllers.Application.postSignup()
 
-GET         /Bookmarklet/:url                 controllers.Application.enterUrlTest(url: String)
+GET         /Bookmarklet                 controllers.Application.enterUrlTest()
 
 # Javascript routing
-GET         /assets/javascripts/routes        controllers.Application.jsRoutes()
+#GET         /assets/javascripts/routes        controllers.Application.jsRoutes()
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -212,9 +212,10 @@ public class Application extends Controller {
    * temporary until button is added.
    * @return the form data.
    */
-  //@Security.Authenticated(Secured.class)
-  public static Result enterUrlTest(String url) {
-    //String url = Form.form().bindFromRequest().get("url");
+  @Security.Authenticated(Secured.class)
+  public static Result enterUrlTest() {
+    String url = Form.form().bindFromRequest().get("url");
+    String bk = Form.form().bindFromRequest().get("bk");
     //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
     System.out.println("INSIDE BOOKMARKLET URL TEST");
     if (url != null) {
@@ -242,12 +243,12 @@ public class Application extends Controller {
    *
    * @return Result object.
    */
-  public static Result jsRoutes() {
+  /*public static Result jsRoutes() {
     response().setContentType("text/javascript");
     return ok(
         // Every route accessible to JavaScript needs to be added here.
         Routes.javascriptRouter("jsRoutes" , controllers.routes.javascript.Application.enterUrlTest()));
-  }
+  }*/
 
   /*
   * Define any extra CORS headers needed for option requests (see http://enable-cors.org/server.html for more info)
