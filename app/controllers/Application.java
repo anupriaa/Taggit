@@ -4,7 +4,6 @@ import models.Entry;
 import models.EntryDB;
 import models.Keywords;
 import models.UrlInfo;
-import models.UserInfo;
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
 import play.data.Form;
