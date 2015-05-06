@@ -5,20 +5,17 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import models.EntryDB;
-import models.UrlInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import play.mvc.Controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -96,7 +93,7 @@ public class ProcessUrlData extends Controller {
           keywordRelevance.add(i, 1.0);
         }
       }
-      catch(Exception e) {
+      catch (Exception e) {
         keywordPresent = false;
         e.printStackTrace();
         System.out.println("CATCH 111");
@@ -151,7 +148,6 @@ public class ProcessUrlData extends Controller {
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
           keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("relevance")));
-          System.out.println("Relevance text---"+array.getJSONObject(i).getString("relevance"));
         }
       }
     }
@@ -191,7 +187,6 @@ public class ProcessUrlData extends Controller {
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
           keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("relevance")));
-          System.out.println("Relevance text---"+array.getJSONObject(i).getString("relevance"));
         }
       }
     }
@@ -244,7 +239,6 @@ public class ProcessUrlData extends Controller {
         for (int i = 0; i < array.length(); i++) {
           keywords.add(array.getJSONObject(i).getString("text"));
           keywordRelevance.add(Double.parseDouble(array.getJSONObject(i).getString("score")));
-          System.out.println("Relevance image---"+array.getJSONObject(i).getString("score"));
         }
       }
     }

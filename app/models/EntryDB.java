@@ -4,7 +4,6 @@ import controllers.Secured;
 import org.mindrot.jbcrypt.BCrypt;
 import play.mvc.Http;
 
-import javax.naming.Context;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,9 +79,12 @@ public class EntryDB {
    * @param keywords  the keywords associated with the entry.
    * @param urlType   the type of url
    * @param url       the url.
+   * @param keywordRelevance       the relevance of each keyword.
+   * @param context       the Http context.
    */
 
-  public static void addEntry(String entryType, ArrayList<String> keywords, ArrayList<Double> keywordRelevance, String urlType, String url,Http.Context context) {
+  public static void addEntry(String entryType, ArrayList<String> keywords, ArrayList<Double> keywordRelevance,
+                              String urlType, String url, Http.Context context) {
 
     /*for(double rel: keywordRelevance) {
       System.out.println("Rele---"+rel);
@@ -114,7 +116,7 @@ public class EntryDB {
     entry.save();
     urlInfo.setUrlEntryId(entry.getEntryId());
     urlInfo.save();
-    i=0;
+    i = 0;
     for (String keywordString : keywords) {
       Keywords keywords1 = new Keywords(keywordString, keywordRelevance.get(i));
       keywords1.setEntry(entry);

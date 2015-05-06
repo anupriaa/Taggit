@@ -1,11 +1,12 @@
 @(page: String, isLoggedIn: Boolean, userInfo: UserInfo,contactForm: Form[views.formdata.SearchFormData],
         urlInfo : List[UrlInfo], isSearchResult: Boolean )
 
-@import helper._
 @import views.html.bootstrap3._
+@import views.html.helper._
 
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
+        <img class="homeimg" src="@routes.Assets.at("images/Taggit_wordcloud.png")">
         @form(routes.Application.searchResult(), 'class -> "form-horizontal formBody") {
                 <!-- Hidden userID Field. -->
             @hidden(contactForm("Id"))

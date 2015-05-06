@@ -6,7 +6,6 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +124,11 @@ public class UserInfo extends Model {
     public void addEntry(Entry entry) {
       entries.add(entry);
     }
+
+  /**
+   * Gets the entries for this user.
+   * @return the entries for this user.
+   */
 
   public List<Entry> getEntries() {
     return entries;

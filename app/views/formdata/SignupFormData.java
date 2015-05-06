@@ -39,7 +39,7 @@ public class SignupFormData {
       errors.add(new ValidationError("email", "Please enter an email address."));
     }
 
-    if(EntryDB.isUser(email)) {
+    if (EntryDB.isUser(email)) {
       errors.add(new ValidationError("email", "Email already exists."));
     }
 

@@ -8,6 +8,9 @@ public class BookmarkletFormData {
    * String to hold url.
    */
   public String url = "";
-  public String bk ="";
+  /**
+   * Check variable for bookmarklet.
+   */
+  public String bk = "";
 
 }

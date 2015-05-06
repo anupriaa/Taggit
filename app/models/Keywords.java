@@ -22,6 +22,7 @@ public class Keywords extends Model {
   /**
    * Constructor to initialize attributes.
    * @param keyword the keywords associated with the entries.
+   * @param keywordRelevance the relevance of each keyword.
    */
   public Keywords(String keyword, double keywordRelevance) {
     this.keyword = keyword;

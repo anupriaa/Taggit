@@ -2,8 +2,8 @@ package controllers;
 
 import models.EntryDB;
 import models.UserInfo;
-import play.mvc.Result;
 import play.mvc.Http.Context;
+import play.mvc.Result;
 import play.mvc.Security;
 
 

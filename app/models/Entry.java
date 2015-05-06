@@ -25,7 +25,8 @@ public class Entry extends Model {
   private String entryType = "";
   //timestamp format is yyyyMMdd_HHmmss.
   private String timestamp = "";
-  private String email="";
+  //email of the user.
+  private String email = "";
 
   @OneToOne(mappedBy = "entry", cascade = CascadeType.PERSIST)
   private UrlInfo urlInfo;
@@ -42,6 +43,7 @@ public class Entry extends Model {
    * @param timestamp the time and date.
    * @param keywords List of Keyword instances.
    * @param urlInfo  Instance of entity UrlInfo.
+   * @param userInfo  Instance of entity userInfo.
    */
   public Entry(String entryType, String timestamp, ArrayList<Keywords> keywords, UrlInfo urlInfo, UserInfo userInfo) {
     this.entryType = entryType;
@@ -131,19 +133,34 @@ public class Entry extends Model {
     this.keywords = keywords;
   }
 
-
+  /**
+   * Gets the user Information.
+   * @return the instance of userInfo.
+   */
   public UserInfo getUserInfo() {
     return userInfo;
   }
 
+  /**
+   * Sets the UserInfo.
+   * @param userInfo The instance of UserInfo.
+   */
   public void setUserInfo(UserInfo userInfo) {
     this.userInfo = userInfo;
   }
 
+  /**
+   * Gets the email of the user.
+   * @return the email of the user.
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * Sets the email of the user.
+   * @param email the email of the user.
+   */
   public void setEmail(String email) {
     this.email = email;
   }
