@@ -4,6 +4,8 @@
 
 # Home page
 GET         /                                 controllers.Application.index()
+GET         /AddBookmarklet                   controllers.Application.addBookmarklet()
+GET         /MyLinks                           controllers.Application.myLinks()
 GET         /EnterUrl                         controllers.Application.enterUrl()
 GET         /Search                           controllers.Application.search()
 POST        /Search                           controllers.Application.searchResult()

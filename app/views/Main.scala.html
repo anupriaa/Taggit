@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/spacelab/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-        <link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica:400,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica:200,400italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
 
             <!--  Load site-specific customizations after bootstrap. -->
@@ -47,12 +47,15 @@
                             <li class="@("active".when(page == "Home"))"><a href="@routes.Application.index()">
                                 Home</a></li>
                             <li class="@("active".when(page == "Faq"))"><a href="@routes.Application.index()">Faq</a></li>
-                            <li class="@("active".when(page == "About"))"><a href="@routes.Application.index()">About</a></li>
                             @if(isLoggedIn) {
                                 <li class="@("active".when(page == "Search"))"><a href="@routes.Application.search()">
                                     Search</a></li>
+                                <li class="@("active".when(page == "MyLinks"))"><a href="@routes.Application.myLinks()">
+                                    My Links</a></li>
                                 <li class="@("active".when(page == "EnterUrl"))"><a href="@routes.Application.enterUrl()">
                                     Enter url</a></li>
+                                <li class="@("active".when(page == "AddBookmarklet"))"><a href="@routes.Application.addBookmarklet()">
+                                    Add Bookmarklet</a></li>
 
                             }
                         </ul>

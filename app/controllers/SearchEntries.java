@@ -65,6 +65,35 @@ public class SearchEntries extends Controller {
     System.out.println("urls in search----" + urls);*/
     return urlList;
   }
+  /**
+   * Queries the database for urls related to the logged in user.
+   * @return the list of urls.
+   */
+  public static List<UrlInfo> searchAllUrl() {
+
+    //getSynonyms(queryKeywords);
+
+    ArrayList<Long> keywordIdList = new ArrayList<Long>();
+    ArrayList<Long> finalIdList = new ArrayList<Long>();
+
+    String email = Secured.getUser(ctx());
+    List<Entry> entryIdList = Entry.find()
+                            .select("entryId")
+                            .where()
+                            .eq("email", email)
+                            .findList();
+    for (Entry entry : entryIdList) {
+      finalIdList.add(entry.getEntryId());
+    }
+    System.out.println("finalIdList---" + finalIdList);
+    List<UrlInfo> urlList = UrlInfo.find().select("url").where().in("urlEntryId", finalIdList).findList();
+    /*ArrayList<String> urls = new ArrayList<String>();
+    for (UrlInfo urlInfo : urlList) {
+      urls.add(urlInfo.getUrl());
+    }
+    System.out.println("urls in search----" + urls);*/
+    return urlList;
+  }
 
   /**
    * Api call to get synonyms of the queried keywords.

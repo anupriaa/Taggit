@@ -4,6 +4,7 @@ import models.Entry;
 import models.EntryDB;
 import models.Keywords;
 import models.UrlInfo;
+import models.UserInfo;
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
 import play.data.Form;
@@ -14,10 +15,12 @@ import play.mvc.Security;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.formdata.SignupFormData;
+import views.html.AddBookmarklet;
 import views.html.Bookmarklet;
 import views.html.EnterUrl;
 import views.html.Index;
 import views.html.Login;
+import views.html.MyLinks;
 import views.html.Search;
 import views.html.Signup;
 import wordcloud.CollisionMode;
@@ -56,7 +59,17 @@ public class Application extends Controller {
     //cloud();
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
-
+  /**
+   * Returns the home page.
+   *
+   * @return The resulting home page.
+   */
+  public static Result addBookmarklet() {
+    //session().clear();
+    //List<Tag> tag = cloud();
+    //cloud();
+    return ok(AddBookmarklet.render("AddBookmarklet", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+  }
   /**
    * Provides the Login page (only to unauthenticated users).
    *@param message The message.
@@ -229,6 +242,18 @@ public class Application extends Controller {
       }
     }
   }
+  /**
+   * Returns the search page with results.
+   * @return the searchFormData and the url list.
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result myLinks() {
+    isSearchResult = true;
+    List<UrlInfo> urlList = new ArrayList<>();
+        urlList = SearchEntries.searchAllUrl();
+        return ok(MyLinks.render("MyLinks", Secured.isLoggedIn(ctx()),
+            Secured.getUserInfo(ctx()), urlList, isSearchResult));
+  }
 
   /**
    * Returns the page to enter url.
@@ -237,13 +262,28 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result enterUrlTest() {
+    ArrayList<Long> entryIdList = new ArrayList<Long>();
     String url = Form.form().bindFromRequest().get("url");
     String bk = Form.form().bindFromRequest().get("bk");
     //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
     System.out.println("INSIDE BOOKMARKLET URL TEST");
     if (url != null) {
       System.out.println("url---" + url);
-      int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
+      List<Entry> idList      = Entry.find()
+                              .select("entryId")
+                              .where()
+                              .eq("email", Secured.getUser(ctx()))
+                              .findList();
+      for (Entry entry : idList) {
+        entryIdList.add(entry.getEntryId());
+      }
+      System.out.println("BK ENTRY ID LIST--" + entryIdList);
+      int rowCount = UrlInfo.find()
+                  .select("url")
+                  .where()
+                  .ieq("url", url)
+                  .in("urlEntryId", entryIdList)
+                  .findRowCount();
       System.out.println("rowcount== " + rowCount);
       if (rowCount == 0) {
         //call class that captures data and feeds it to db.

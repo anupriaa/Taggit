@@ -73,6 +73,17 @@ body {
     margin-left: auto;
     margin-right: auto
 }
+.bookmarkletText{
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 20px;
+    color: black;
+}
+.bookmarkletLinkt{
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 20px;
+    color: white;
+    text-decoration: underline;
+}
 .btn-default{
 
 }

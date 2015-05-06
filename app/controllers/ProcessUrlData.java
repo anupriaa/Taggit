@@ -105,6 +105,7 @@ public class ProcessUrlData extends Controller {
         extractKeywords(description);
       }
       catch (Exception e) {
+        System.out.print("INSIDE DESC CATCH");
         descPresent = false;
         e.printStackTrace();
       }
@@ -165,7 +166,7 @@ public class ProcessUrlData extends Controller {
    */
   private static void extractKeywordsFromUrl(String url) {
     try {
-      System.out.println("EXTRACT KEYWORD ");
+      System.out.println("EXTRACT KEYWORD URL");
       String endpoint = "http://access.alchemyapi.com/calls/url/URLGetRankedKeywords";
       String maxRetrieve = "5";
       String extractMode = "strict";
