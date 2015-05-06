@@ -18,8 +18,12 @@ Taggit is similar to several other apps out there that essentially serve as virt
 
 ##Current features
 This application intends to provide two ways of linking a resource to Taggit.
-1. Providing a URL to a website of interest.
-2. Manual text entry.
+1. Adding urls through click of bookmarlet.
+2. Manual url entry.
+3. Automatic extraction of associated keywords.
+4. Search through keywords.
+5. Collection of all the links associated with a user.
+6. User Authenthentication and authorization.
 
 ##Scope for future development
 1. Direct linking through share feature implemented as a browser extensions button.
