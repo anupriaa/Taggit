@@ -3,12 +3,9 @@ package controllers;
 import models.Entry;
 import models.Keywords;
 import models.UrlInfo;
-<<<<<<< HEAD
-=======
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
->>>>>>> origin/milestone-3-bookmarklet-2
 import play.mvc.Controller;
 
 import javax.xml.parsers.DocumentBuilder;

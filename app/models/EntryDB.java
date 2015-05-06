@@ -1,12 +1,11 @@
 package models;
 
-<<<<<<< HEAD
+
 import play.db.ebean.Model;
-=======
 import controllers.Secured;
 import org.mindrot.jbcrypt.BCrypt;
 import play.mvc.Http;
->>>>>>> origin/milestone-3-bookmarklet-2
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,7 +95,7 @@ public class EntryDB extends Model {
 
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
-    ArrayList<Keywords> keywordList = new ArrayList<>();
+    ArrayList<Keywords> keywordList = new ArrayList<Keywords>();
     int i = 0;
     for (String keywordString : keywords) {
       keywordList.add(new Keywords(keywordString, keywordRelevance.get(i)));

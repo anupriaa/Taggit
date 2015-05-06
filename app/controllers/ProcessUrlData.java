@@ -21,11 +21,7 @@ import java.util.Collections;
 /**
  * Handles the html data from the entered URL.
  */
-<<<<<<< HEAD
 public class ProcessUrlData extends Controller  {
-=======
-public class ProcessUrlData extends Controller {
->>>>>>> origin/milestone-3-bookmarklet-2
 
   /**
    * ArrayList to store associated keywords.
