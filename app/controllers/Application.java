@@ -53,7 +53,7 @@ public class Application extends Controller {
   public static Result index() {
     //session().clear();
     //buildCloud();
-    List<Tag> tag = cloud();
+    //List<Tag> tag = cloud();
     //cloud();
 
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
@@ -98,7 +98,7 @@ public class Application extends Controller {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
-      return redirect(routes.Application.index());
+      return redirect(routes.Application.search());
     }
   }
 
