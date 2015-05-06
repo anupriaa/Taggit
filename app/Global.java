@@ -28,7 +28,7 @@ public class Global extends GlobalSettings {
   private class ActionWrapper extends Action.Simple {
     /**
      * Action wrapper for CORS functionality.
-     * @param action the action.
+     * @param action the action taken.
      */
     public ActionWrapper(Action<?> action) {
 
