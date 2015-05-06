@@ -17,6 +17,7 @@ import views.formdata.SignupFormData;
 import views.html.AddBookmarklet;
 import views.html.Bookmarklet;
 import views.html.EnterUrl;
+import views.html.Faq;
 import views.html.Index;
 import views.html.Login;
 import views.html.MyLinks;
@@ -57,6 +58,14 @@ public class Application extends Controller {
     //List<Tag> tag = cloud();
     //cloud();
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+  }
+  /**
+   * Returns the Faq page.
+   *
+   * @return The resulting Faq page.
+   */
+  public static Result faq() {
+    return ok(Faq.render("Faq", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   /**
    * Returns the home page.

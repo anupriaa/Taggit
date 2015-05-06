@@ -46,7 +46,7 @@
                         <ul class="nav navbar-nav">
                             <li class="@("active".when(page == "Home"))"><a href="@routes.Application.index()">
                                 Home</a></li>
-                            <li class="@("active".when(page == "Faq"))"><a href="@routes.Application.index()">Faq</a></li>
+                            <li class="@("active".when(page == "Faq"))"><a href="@routes.Application.faq()">Faq</a></li>
                             @if(isLoggedIn) {
                                 <li class="@("active".when(page == "Search"))"><a href="@routes.Application.search()">
                                     Search</a></li>
