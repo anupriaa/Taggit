@@ -3,7 +3,7 @@
 @import views.html.bootstrap3._
 
 @Main(page, isLoggedIn, userInfo) {
-    <div class="container">
+    <div class="container containerm">
         <h3 >To Create a New Account, please fill in your Email and Password</h3><br/>
     @signupform(routes.Application.postSignup(), signupForm("email"), signupForm("password"), signupForm("confirmPassword"))
     </div>

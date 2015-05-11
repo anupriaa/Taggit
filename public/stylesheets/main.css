@@ -2,9 +2,12 @@ body {
     background-color: #B1C0E6;
     overflow :scroll
     width: 2000px;
+    padding-bottom: 50px;
 
 }
-
+.containerm{
+    height: 500px;
+}
 
 .header {
     background-image: url("../images/TagIt.png");
@@ -33,16 +36,14 @@ body {
     background-color: #75548C;
     background-image: none;
     border-color: #75548C ;
-    position: relative;
-    margin: 0 auto;
-    width: 1903px;
+
 
 }
-.bottom{
+/*.footer{
     background-color: #75548C;
-    width: 1903px;
+    *//*width: 1903px;*//*
     height: 52px;
-}
+}*/
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
     background-color: #75548C;
@@ -120,4 +121,7 @@ body {
     /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
+}
+.mainp {
+    margin: 0 0 0 0;
 }

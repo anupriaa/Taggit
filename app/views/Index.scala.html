@@ -1,27 +1,43 @@
 @(page: String, isLoggedIn: Boolean, userInfo: UserInfo)
 
-@Main(page, isLoggedIn, userInfo) {
-    <div class="container">
-     <div>
-      @*<h1 class="homeText1">Taggit</h1>*@
-        <img class="homeimg" src="@routes.Assets.at("images/TagIt.png")">
-      <p class="subText">Life is complicated, simplify it with Taggit.</p>
-     </div>
-       <br/>
-     <div>
-      <h3 class="homeText "><p>Taggit attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium.</p>
-          <br/>
-       <p>Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.</p></h3>
+    @Main(page, isLoggedIn, userInfo) {
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    @*<h1 class="homeText1">Taggit</h1>*@
+                    <img class="img-responsive homeimg" src="@routes.Assets.at("images/TagIt.png")">
+                    <p class="subText">Life is complicated, simplify it with Taggit.</p>
+                </div>
+                <br/>
+                <div class="col-md-12">
+                    <h3 class="homeText ">
+                        <p>
+                            Taggit attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium.</p>
+                        <br/>
+                        <p>Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.</p></h3>
 
-        <br/><br/>
+                    <br/><br/>
+                </div>
+                @*<div class="col-md-3 col-md-offset-3 subText">
+                    <p class="subText1">Start organizing with Taggit.</p>
+                </div>
+                <div class="col-md-3 subText">
+                    <a class="btn btn-default btn-lg" href="http://www.taggit.website/signup" role="button">
+                        Sign Up with email</a>
+                </div>
+                <div class="col-md-3 subText">
+                    <p class="subText1">It's totally free.</p>
+                </div>*@
+                <div class="col-md-8 col-md-offset-4">
+                    <p class="subText1">Start organizing with Taggit.  <a class="btn btn-default btn-lg" href="http://www.taggit.website/signup" role="button">Sign Up with email</a>  It's totally free. Just try it!</p>
+                </div>
+                <div class="col-md-7 col-md-offset-5">
+                    <p class="subText1">Already have an account? <a class="link" href="http://www.taggit.website/login">
+                        Log in now</a></p>
+                </div>
+            </div>
         </div>
-       <div class="subText">
-        <p class="subText1">Start organizing with Taggit.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-default btn-lg" href="http://www.taggit.website/signup" role="button">Sign Up with email</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's totally free. Just Try it.</p>
-        <p class="subText1">Already have an account? <a class="link" href="http://www.taggit.website/login">Log in now</a></p>
-          </div>
-
-     </div>
-}
+    }
 
 
 
