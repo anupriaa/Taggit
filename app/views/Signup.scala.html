@@ -5,6 +5,6 @@
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
         <h3 >To Create a New Account, please fill in your Email and Password</h3><br/>
-    @signupform(routes.Application.postSignup(), signupForm("email"), signupForm("password"))
+    @signupform(routes.Application.postSignup(), signupForm("email"), signupForm("password"), signupForm("confirmPassword"))
     </div>
 }

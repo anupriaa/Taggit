@@ -21,6 +21,12 @@ public class SignupFormData {
    */
   public String password = "";
 
+  /**
+   * The submitted password.
+   */
+  public String confirmPassword = "";
+
+
   /** Required for form instantiation. */
   public SignupFormData() {
   }
@@ -49,6 +55,14 @@ public class SignupFormData {
 
     if (password.length() > 0 && password.length() < 6) {
       errors.add(new ValidationError("password", "Please enter a password of at least 6 characters."));
+    }
+
+    if (confirmPassword == null || confirmPassword.length() == 0) {
+      errors.add(new ValidationError("confirmPassword", "Please confirm password."));
+    }
+
+    if (!(confirmPassword.equals(password))) {
+      errors.add(new ValidationError("confirmPassword", "Password and confirm password do not match"));
     }
 
     return (errors.size() > 0) ? errors : null;

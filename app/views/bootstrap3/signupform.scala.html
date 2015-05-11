@@ -6,7 +6,7 @@ If form validation fails, then the fields will have Twitter Bootstrap error high
 Clients should set the "error" key in flash scope to provide feedback on errors.
 **************************@
 
-@(reverseRoute: play.api.mvc.Call, emailField: Field, passwordField: Field)
+@(reverseRoute: play.api.mvc.Call, emailField: Field, passwordField: Field, confirmPasswordField: Field)
 
 <div class="row">
     <div class="col-sm-6">
@@ -33,6 +33,15 @@ Clients should set the "error" key in flash scope to provide feedback on errors.
                             value="@passwordField.value.getOrElse("")"
                             class="form-control"
                             placeholder="Password"
+                            type="password">
+                        </div>
+                        <div class="form-group @if(confirmPasswordField.hasErrors) {has-error}" >
+                            <input
+                            id="@confirmPasswordField.id"
+                            name="@confirmPasswordField.name"
+                            value="@confirmPasswordField.value.getOrElse("")"
+                            class="form-control"
+                            placeholder="Confirm Password"
                             type="password">
                         </div>
                         <input class="btn btn-default" type="submit" value="Signup">

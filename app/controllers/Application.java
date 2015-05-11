@@ -388,6 +388,7 @@ public class Application extends Controller {
           .select("keyword")
           .where()
           .in("keywordEntryId", entryIdList)
+          //.orderBy("keywordRelevance")
           .findList();
       for (Keywords keyword : list) {
         keywords.add(keyword.getKeyword());
