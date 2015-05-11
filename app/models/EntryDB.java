@@ -1,6 +1,7 @@
 package models;
 
 
+import controllers.Application;
 import play.db.ebean.Model;
 import controllers.Secured;
 import org.mindrot.jbcrypt.BCrypt;
@@ -58,8 +59,22 @@ public class EntryDB extends Model {
    * @param password The password to save with the user.
    */
   public static void addNewUser(String email, String password) {
+    System.out.println("INSIDE ADD USER");
     UserInfo user = new UserInfo(email, BCrypt.hashpw(password, BCrypt.gensalt(12)));
+    user.setImage(Application.buildCloud());
     user.save();
+  }
+
+  /**
+   * Create a new user and save them to the database with encrypted password.
+   * @param email    Email Address
+   * @param id  The id associated with the user.
+   */
+  public static void updateUserImage(Long id, String email) {
+    System.out.println("INSIDE UPDATE USER");
+    UserInfo user = UserInfo.find().select("email").where().eq("email",email).findUnique();
+    user.setImage(Application.buildCloud());
+    user.update();
   }
 
   /**
@@ -105,6 +120,7 @@ public class EntryDB extends Model {
     UrlInfo urlInfo = new UrlInfo(urlType, url);
     String email = Secured.getUser(context);
     UserInfo userInfo = getUser(email);
+    //userInfo.setImage(Application.buildCloud());
     Entry entry = new Entry(entryType, timeStamp, keywordList, urlInfo, userInfo);
     //get logged in users email.
     System.out.println("email of logged in ---" + Secured.getUser(context));

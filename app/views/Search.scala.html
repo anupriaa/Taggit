@@ -6,7 +6,9 @@
 
 @Main(page, isLoggedIn, userInfo) {
     <div class="container">
-        <img class="homeimg" src="@routes.Assets.at("images/Taggit_wordcloud.png")">
+        @*<img class="homeimg" src="@routes.Assets.at("images/Taggit_wordcloud.png")">*@
+        <img class="img-responsive" src="@routes.Application.getImage()"
+        alt="Keyword Cloud"/>
         @form(routes.Application.searchResult(), 'class -> "form-horizontal formBody") {
                 <!-- Hidden userID Field. -->
             @hidden(contactForm("Id"))

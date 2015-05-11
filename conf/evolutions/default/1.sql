@@ -34,6 +34,7 @@ create table user_info (
   id                        bigint not null,
   email                     varchar(255),
   password                  varchar(255),
+  image                     bytea,
   constraint pk_user_info primary key (id))
 ;
 

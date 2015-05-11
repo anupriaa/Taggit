@@ -4,6 +4,7 @@ import models.Entry;
 import models.EntryDB;
 import models.Keywords;
 import models.UrlInfo;
+import models.UserInfo;
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
 import play.data.Form;
@@ -32,6 +33,7 @@ import wordcloud.nlp.FrequencyAnalizer;
 import wordcloud.palette.ColorPalette;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -210,13 +212,33 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result search() {
-    buildCloud();
+    //buildCloud();
+    System.out.println("id----" + Secured.getUserInfo(ctx()).getId());
+    System.out.println("EMAIL----" + Secured.getUser(ctx()));
+
+    EntryDB.updateUserImage(Secured.getUserInfo(ctx()).getId(), Secured.getUser(ctx()));
     isSearchResult = false;
     List<UrlInfo> urlList = new ArrayList<>();
     SearchFormData data = new SearchFormData();
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
     return ok(Search.render("Search", Secured.isLoggedIn(ctx()),
         Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
+  }
+  /**
+   * Gets the image that has been uploaded to the database.
+   * @return The image.
+   */
+  public static Result getImage() {
+    UserInfo user = UserInfo.find()
+                    .select("image")
+                    .where()
+                    .eq("email", Secured.getUser(ctx()))
+                    .findUnique();
+    if (user == null) {
+      throw new RuntimeException("Could not find the image with associated user.");
+    }
+
+    return ok(user.getImage()).as("image");
   }
 
   /**
@@ -336,38 +358,50 @@ public class Application extends Controller {
   /**
    * Builds a png of the word cloud of the logged in user's keywords.
    * The png is displayed in the search screen.
+   * @return File Returns the image file of the cloud.
    */
-  public static void buildCloud() {
+  public static File buildCloud() {
     System.out.println("INSIDE BUILD");
     List<String> keywords = new ArrayList<String>();
+    File image = new File("public/images/DefaultCloud.png");
     ArrayList<Long> entryIdList = new ArrayList<Long>();
-    List<Entry> idList      = Entry.find()
-                            .select("entryId")
-                            .where()
-                            .eq("email", Secured.getUser(ctx()))
-                            .findList();
-    for (Entry entry : idList) {
-      entryIdList.add(entry.getEntryId());
+    //Check if any entry is present or not
+    int entryCount = Entry.find()
+                    .select("entryId")
+                    .where()
+                    .eq("email", Secured.getUser(ctx()))
+                    .findRowCount();
+    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    if (entryCount == 0) {
+      return image;
     }
-    List<Keywords> list = Keywords.find()
-                          .select("keyword")
-                          .where()
-                           .in("keywordEntryId", entryIdList)
-                            .findList();
-    for (Keywords keyword: list) {
-      keywords.add(keyword.getKeyword());
-    }
-    try {
-      final FrequencyAnalizer frequencyAnalizer = new FrequencyAnalizer();
-      //frequencyAnalizer.setWordFrequencesToReturn(20);
-      //frequencyAnalizer.setMinWordLength(4);
-      //frequencyAnalizer.setStopWords(loadStopWords());
+    else {
+      List<Entry> idList = Entry.find()
+          .select("entryId")
+          .where()
+          .eq("email", Secured.getUser(ctx()))
+          .findList();
+      for (Entry entry : idList) {
+        entryIdList.add(entry.getEntryId());
+      }
+      List<Keywords> list = Keywords.find()
+          .select("keyword")
+          .where()
+          .in("keywordEntryId", entryIdList)
+          .findList();
+      for (Keywords keyword : list) {
+        keywords.add(keyword.getKeyword());
+      }
+      try {
+        final FrequencyAnalizer frequencyAnalizer = new FrequencyAnalizer();
+        //frequencyAnalizer.setWordFrequencesToReturn(20);
+        //frequencyAnalizer.setMinWordLength(4);
+        //frequencyAnalizer.setStopWords(loadStopWords());
 
-      final List<WordFrequency> wordFrequencies = frequencyAnalizer.load(keywords);
-      //System.out.println("list=====00"+Arrays.toString(list.toArray()));
-      final WordCloud wordCloud = new WordCloud(400, 200, CollisionMode.PIXEL_PERFECT);
-      wordCloud.setPadding(2);
-      System.out.println("Before back");
+        final List<WordFrequency> wordFrequencies = frequencyAnalizer.load(keywords);
+        //System.out.println("list=====00"+Arrays.toString(list.toArray()));
+        final WordCloud wordCloud = new WordCloud(400, 200, CollisionMode.PIXEL_PERFECT);
+        wordCloud.setPadding(2);
       /*try {
         wordCloud.setBackground(new PixelBoundryBackground(getInputStream("public/images/TagIt.png")));
       }
@@ -375,22 +409,24 @@ public class Application extends Controller {
         System.out.println("e.p");
         e.printStackTrace();
       }*/
-      System.out.println("Afer back");
-      //wordCloud.setBackground(new CircleBackground(150));
-      wordCloud.setBackground(new RectangleBackground(400, 200));
-      wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1),
-          new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
-      //wordCloud.setFontScalar(new LinearFontScalar(10, 40));
-      //wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
-      //wordCloud.setColorPalette(buildRandomColorPallete(20));
-      wordCloud.setFontScalar(new LinearFontScalar(10, 40));
-      wordCloud.build(wordFrequencies);
-      System.out.println("Before writing");
-      wordCloud.writeToFile("public/images/Taggit_wordcloud.png");
-      System.out.println("After writing");
-    }
-    catch (Exception e) {
-      System.out.print("Exception" + e);
+        //wordCloud.setBackground(new CircleBackground(150));
+        wordCloud.setBackground(new RectangleBackground(400, 200));
+        wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1),
+            new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
+        //wordCloud.setFontScalar(new LinearFontScalar(10, 40));
+        //wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
+        //wordCloud.setColorPalette(buildRandomColorPallete(20));
+        wordCloud.setFontScalar(new LinearFontScalar(10, 40));
+        wordCloud.build(wordFrequencies);
+        System.out.println("Before writing");
+        wordCloud.writeToFile("public/images/Wordcloud.png");
+        image = new File("public/images/Wordcloud.png");
+        System.out.println("After writing");
+      }
+      catch (Exception e) {
+        System.out.print("Exception" + e);
+      }
+      return image;
     }
   }
 

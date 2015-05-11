@@ -5,7 +5,13 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +24,18 @@ public class UserInfo extends Model {
     private long id;
     private String email;
     private String password;
+    /** The image data. */
+    @Lob
+    private byte[] image;
     @OneToMany(mappedBy = "userInfo")
     private List<Entry> entries = new ArrayList<>();
 
+  /**
+   *
+   */
+     public UserInfo(){
 
+     }
     /**
      * Create a new UserInfo object.
      *
@@ -132,5 +146,34 @@ public class UserInfo extends Model {
 
   public List<Entry> getEntries() {
     return entries;
+  }
+
+  public byte[] getImage() {
+    return image;
+  }
+
+  public void setImage(File image) {
+    this.image = new byte[(int) image.length()];
+    /* write the image data into the byte array */
+    InputStream inStream = null;
+    try {
+      inStream = new BufferedInputStream(new FileInputStream(image));
+      inStream.read(this.image);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (inStream != null) {
+        try {
+          inStream.close();
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    this.save();
   }
 }
