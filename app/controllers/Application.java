@@ -12,6 +12,7 @@ import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import play.mvc.With;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.formdata.SignupFormData;
@@ -42,6 +43,7 @@ import java.util.List;
 /**
  * Provides controllers for this application.
  */
+@With(HttpsAction.class)
 public class Application extends Controller {
 
   /**
@@ -56,7 +58,7 @@ public class Application extends Controller {
    * @return The resulting home page.
    */
   public static Result index() {
-    //session().clear();
+    session().clear();
     //List<Tag> tag = cloud();
     //cloud();
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
