@@ -74,10 +74,19 @@ public class Application extends Controller {
   public static Result faq() {
     return ok(Faq.render("Faq", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
+
   /**
-   * Returns the home page.
+   * Returns the welcome page.
    *
-   * @return The resulting home page.
+   * @return The resulting welcome page.
+   */
+  public static Result welcome() {
+    return ok(Faq.render("Welcome", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+  }
+  /**
+   * Returns the add bookmarklet page.
+   *
+   * @return The resulting add bookmarklet page.
    */
   public static Result addBookmarklet() {
     //session().clear();
@@ -124,7 +133,12 @@ public class Application extends Controller {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
-      return redirect(routes.Application.search());
+      if(checkNoOfEntries() == 0) {
+        return redirect(routes.Application.welcome());
+      }
+      else {
+        return redirect(routes.Application.search());
+      }
     }
   }
 
@@ -222,13 +236,7 @@ public class Application extends Controller {
     System.out.println("EMAIL----" + Secured.getUser(ctx()));
 
     EntryDB.updateUserImage(Secured.getUserInfo(ctx()).getId(), Secured.getUser(ctx()));
-    //Check if any entry is present or not
-    int entryCount = Entry.find()
-        .select("entryId")
-        .where()
-        .eq("email", Secured.getUser(ctx()))
-        .findRowCount();
-    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    int entryCount = checkNoOfEntries();
     if (entryCount == 0) {
       noEntryForUser = true;
     }
@@ -381,12 +389,7 @@ public class Application extends Controller {
     File image = new File("public/images/DefaultCloud.png");
     ArrayList<Long> entryIdList = new ArrayList<Long>();
     //Check if any entry is present or not
-    int entryCount = Entry.find()
-                    .select("entryId")
-                    .where()
-                    .eq("email", Secured.getUser(ctx()))
-                    .findRowCount();
-    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    int entryCount = checkNoOfEntries();
     if (entryCount == 0) {
       return image;
     }
@@ -484,5 +487,14 @@ public class Application extends Controller {
     }
     return (cloud.allTags());
 
+  }
+  private static int checkNoOfEntries() {
+    //Check if any entry is present or not
+    int entryCount = Entry.find()
+        .select("entryId")
+        .where()
+        .eq("email", Secured.getUser(ctx()))
+        .findRowCount();
+    return entryCount;
   }
 }
