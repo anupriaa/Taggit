@@ -5,7 +5,7 @@
      <div class="row">
         <div class="md-col-12">
         <p class="bookmarkletText">Our bookmarklet lets you quickly add links from any web page. Just make sure your bookmarks toolbar is visible, and then drag the below link. </p>
-       <a class="bookmarkletLinkt" ICON ="" href='javascript: (function(e, t) {
+       <a class="bookmarkletLinkt" href='javascript: (function(e, t) {
         var n = e.document;
         setTimeout(function() {
         function a(e) {
@@ -47,7 +47,6 @@
         var u = o == "attachEvent" ? "onmessage" : "message";
         e[o](u, a, false)
         }, 1)
-        })(window)'><img src="@routes.Assets.at("images/bokmarklet.png")"> </a>
        <br/>
        <p class="bookmarkletText">Done! Now just click 'Tag it!'’ any time you want to add a page.</p>
         </div>

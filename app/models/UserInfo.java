@@ -24,6 +24,8 @@ public class UserInfo extends Model {
     private long id;
     private String email;
     private String password;
+    private String firstName;
+    private String lastName;
     /** The image data. */
     @Lob
     private byte[] image;
@@ -42,10 +44,12 @@ public class UserInfo extends Model {
      * @param email The email address of the user.
      * @param password The password of the user.
      */
-    public UserInfo(String email, String password) {
+    public UserInfo(String email, String password, String firstName, String lastName) {
 
       this.email = email;
       this.password = password;
+      this.firstName = firstName;
+      this.lastName = lastName;
     }
 
     /**
@@ -175,5 +179,21 @@ public class UserInfo extends Model {
     }
 
     this.save();
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 }

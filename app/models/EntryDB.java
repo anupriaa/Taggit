@@ -58,9 +58,9 @@ public class EntryDB extends Model {
    * @param email    Email Address
    * @param password The password to save with the user.
    */
-  public static void addNewUser(String email, String password) {
+  public static void addNewUser(String email, String password, String firstName, String lastName) {
     System.out.println("INSIDE ADD USER");
-    UserInfo user = new UserInfo(email, BCrypt.hashpw(password, BCrypt.gensalt(12)));
+    UserInfo user = new UserInfo(email, BCrypt.hashpw(password, BCrypt.gensalt(12)), firstName, lastName);
     user.setImage(Application.buildCloud());
     user.save();
   }

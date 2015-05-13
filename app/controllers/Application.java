@@ -179,7 +179,7 @@ public class Application extends Controller {
       //session().clear();
       //session("email", formData.get().email);
       SignupFormData dataFromForm = formData.get();
-      EntryDB.addNewUser(dataFromForm.email, dataFromForm.password);
+      EntryDB.addNewUser(dataFromForm.email, dataFromForm.password, dataFromForm.firstName, dataFromForm.lastName);
       return redirect(routes.Application.login("Success"));
     }
   }

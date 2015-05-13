@@ -17,6 +17,16 @@ public class SignupFormData {
   public String email = "";
 
   /**
+   * The submitted first Name.
+   */
+  public String firstName = "";
+
+  /**
+   * The submitted last Name.
+   */
+  public String lastName = "";
+
+  /**
    * The submitted password.
    */
   public String password = "";
@@ -63,6 +73,12 @@ public class SignupFormData {
 
     if (!(confirmPassword.equals(password))) {
       errors.add(new ValidationError("confirmPassword", "Password and confirm password do not match"));
+    }
+    if (firstName == null || firstName.length() == 0) {
+      errors.add(new ValidationError("firstName" , "Please enter your first name."));
+    }
+    if (lastName == null || lastName.length() == 0) {
+      errors.add(new ValidationError("lastName" , "Please enter your last name."));
     }
 
     return (errors.size() > 0) ? errors : null;
