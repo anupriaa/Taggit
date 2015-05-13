@@ -1,5 +1,5 @@
 @(page: String, isLoggedIn: Boolean, userInfo: UserInfo,contactForm: Form[views.formdata.SearchFormData],
-        urlInfo : List[UrlInfo], isSearchResult: Boolean )
+        urlInfo : List[UrlInfo], isSearchResult: Boolean, noEntryForUser: Boolean )
 
 @import views.html.bootstrap3._
 @import views.html.helper._
@@ -9,29 +9,33 @@
         @*<img class="homeimg" src="@routes.Assets.at("images/Taggit_wordcloud.png")">*@
         <img class="img-responsive" src="@routes.Application.getImage()"
         alt="Keyword Cloud"/>
-        @form(routes.Application.searchResult(), 'class -> "form-horizontal formBody") {
-                <!-- Hidden userID Field. -->
-            @hidden(contactForm("Id"))
-                <!-- Hidden UserId Field -->
-            <input type="hidden"
-            name="UserId"
-            id="UserId"
-            value="@userInfo.getId()">
-                <!-- url -->
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Search</label>
-                <div class="col-sm-7">
-                        <input type="text" class="form-control"
-                        name ="queryData"
-                        id="queryData"
-                        placeholder="Please enter keyword to search.">
+        @if(noEntryForUser) {
+            <h2>No entries present for user</h2>
+        } else {
+            @form(routes.Application.searchResult(), 'class -> "form-horizontal formBody") {
+                    <!-- Hidden userID Field. -->
+                @hidden(contactForm("Id"))
+                    <!-- Hidden UserId Field -->
+                <input type="hidden"
+                name="UserId"
+                id="UserId"
+                value="@userInfo.getId()">
+                    <!-- url -->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Search</label>
+                    <div class="col-sm-7">
+                            <input type="text" class="form-control"
+                            name ="queryData"
+                            id="queryData"
+                            placeholder="Please enter keyword to search.">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-7">
-                    <button id="submit" type="submit" class="btn btn-default">Submit</button>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-7">
+                        <button id="submit" type="submit" class="btn btn-default">Submit</button>
+                    </div>
                 </div>
-            </div>
+            }
         }
         @if(isSearchResult) {
             @if(!urlInfo.isEmpty) {

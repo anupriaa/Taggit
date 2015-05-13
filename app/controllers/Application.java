@@ -49,6 +49,11 @@ public class Application extends Controller {
    * false other wise.
    */
   public static boolean isSearchResult = false;
+  /**
+   * True no entry is present for the logged in user.
+   * false other wise.
+   */
+  public static boolean noEntryForUser = false;
 
   /**
    * Returns the home page.
@@ -217,12 +222,22 @@ public class Application extends Controller {
     System.out.println("EMAIL----" + Secured.getUser(ctx()));
 
     EntryDB.updateUserImage(Secured.getUserInfo(ctx()).getId(), Secured.getUser(ctx()));
+    //Check if any entry is present or not
+    int entryCount = Entry.find()
+        .select("entryId")
+        .where()
+        .eq("email", Secured.getUser(ctx()))
+        .findRowCount();
+    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    if (entryCount == 0) {
+      noEntryForUser = true;
+    }
     isSearchResult = false;
     List<UrlInfo> urlList = new ArrayList<>();
     SearchFormData data = new SearchFormData();
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).fill(data);
     return ok(Search.render("Search", Secured.isLoggedIn(ctx()),
-        Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
+        Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult, noEntryForUser));
   }
   /**
    * Gets the image that has been uploaded to the database.
@@ -253,7 +268,7 @@ public class Application extends Controller {
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
     if (searchFormData.hasErrors()) {
       return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()),
-          Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult));
+          Secured.getUserInfo(ctx()), searchFormData, urlList, isSearchResult, noEntryForUser));
     }
     else {
       String queryData = Form.form().bindFromRequest().get("queryData");
@@ -264,11 +279,11 @@ public class Application extends Controller {
         System.out.println("query arraylist--" + queryKeywords);
         urlList = SearchEntries.searchUrl(queryKeywords);
         return ok(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), searchFormData,
-            urlList, isSearchResult));
+            urlList, isSearchResult, noEntryForUser));
       }
       else {
         return badRequest(Search.render("Search", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
-            searchFormData, urlList, isSearchResult));
+            searchFormData, urlList, isSearchResult, noEntryForUser));
       }
     }
   }
