@@ -1,7 +1,7 @@
 # Taggit as and when you like it.
 
 ## Overview
-Life is complicated, simplify it with [Taggit](http://www.taggit.website/).
+Life is complicated, simplify it with [Taggit](https://www.taggit.website/).
 
 <img src="https://github.com/anupriaa/Taggit/blob/master/doc/images/Search.png">
 
@@ -11,6 +11,13 @@ While this seems like a very expansive undertaking, the idea is pretty simple. W
 
 Taggit is similar to several other apps out there that essentially serve as virtual diaries or scrap books. Apps like evernote and pocket serve as repositories of your digital lives and allow both tagging and searching. However taggit attempts to take this one step further through automatic contextualizing and keywords linking. It also aims to serve a different end purpose: more than just an online directory for content that the user himself organizes, it is meant to be a dumping ground for random moments from day to day life that are sorted and managed transparently.
 
+With Taggit, you can save all the websites you like only with a click. Just follow these easy steps:
+<li>Signup and Login</li>
+<li>Add the Taggit! bookmarklet to your favourute browser.</li>
+<li>Then, just click on the bookmarklet, when you want to save a website.</li>
+<li>And later search your saved websites with keywords from the keyword cloud, we build just for you.</li>
+<li>Or you can take a look at all your links by going to My Links.</li>
+
 <b>This Application uses the following technologies:</b>
 - <a href="https://www.playframework.com/">Play Framework 2.3.8</a>
 - <a href="http://getbootstrap.com/2.3.2/">Twitter Bootstrap</a>
@@ -18,10 +25,11 @@ Taggit is similar to several other apps out there that essentially serve as virt
 
 ##Current features
 This application intends to provide two ways of linking a resource to Taggit.
+<li>A secure connection.</li>
 <li>Adding urls through click of bookmarlet.</li>
 <li>User Authenthentication and authorization.</li>
 <li>Manual url entry.</li>
-<li>Automatic extraction of associated keywords.</li>
+<li>Keyword cloud of the automatically extracted associated keywords.</li>
 <li>Search through keywords.</li>
 <li>Collection of all the links associated with a user.</li>
 
@@ -30,7 +38,7 @@ This application intends to provide two ways of linking a resource to Taggit.
 <li>Social media linking.</li>
 <li>Photo uploads.</li>
 
-The currently deployed application can be accessed at [link](http://www.taggit.website/)  
+The currently deployed application can be accessed at [link](https://www.taggit.website/)  
 
 More details can be found in the [User Guide](https://github.com/anupriaa/Taggit/wiki/User-Guide).
 
