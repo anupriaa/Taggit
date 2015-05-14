@@ -155,3 +155,8 @@ a.link:hover {
     color: black;
     font-weight: normal;
 }
+.homeimg12{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
