@@ -13,7 +13,7 @@ Taggit is similar to several other apps out there that essentially serve as virt
 
 With Taggit, you can save all the websites you like only with a click. Just follow these easy steps:
 <li>Signup and Login</li>
-<li>Add the Taggit! bookmarklet to your favourute browser.</li>
+<li>Add the Taggit! bookmarklet to your favourite browser.</li>
 <li>Then, just click on the bookmarklet, when you want to save a website.</li>
 <li>And later search your saved websites with keywords from the keyword cloud, we build just for you.</li>
 <li>Or you can take a look at all your links by going to My Links.</li>
