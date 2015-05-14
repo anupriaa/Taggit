@@ -57,6 +57,8 @@ public class EntryDB extends Model {
    *
    * @param email    Email Address
    * @param password The password to save with the user.
+   * @param firstName The first name of the user.
+   * @param lastName The last name of the user.
    */
   public static void addNewUser(String email, String password, String firstName, String lastName) {
     System.out.println("INSIDE ADD USER");
@@ -72,7 +74,7 @@ public class EntryDB extends Model {
    */
   public static void updateUserImage(Long id, String email) {
     System.out.println("INSIDE UPDATE USER");
-    UserInfo user = UserInfo.find().select("email").where().eq("email",email).findUnique();
+    UserInfo user = UserInfo.find().select("email").where().eq("email", email).findUnique();
     user.setImage(Application.buildCloud());
     user.update();
   }

@@ -35,7 +35,7 @@ public class UserInfo extends Model {
   /**
    *
    */
-     public UserInfo(){
+     public UserInfo() {
 
      }
     /**
@@ -43,6 +43,8 @@ public class UserInfo extends Model {
      *
      * @param email The email address of the user.
      * @param password The password of the user.
+     * @param firstName The first name of the user.
+     * @param lastName The last name of the user.
      */
     public UserInfo(String email, String password, String firstName, String lastName) {
 
@@ -152,10 +154,18 @@ public class UserInfo extends Model {
     return entries;
   }
 
+  /**
+   * Gets the keyword cloud image.
+   * @return the image
+   */
   public byte[] getImage() {
     return image;
   }
 
+  /**
+   * Sets the keyword cloud image.
+   * @param image the image.
+   */
   public void setImage(File image) {
     this.image = new byte[(int) image.length()];
     /* write the image data into the byte array */
@@ -181,18 +191,31 @@ public class UserInfo extends Model {
     this.save();
   }
 
+  /**
+   * Gets the first name of the user.
+   * @return first name.
+   */
   public String getFirstName() {
     return firstName;
   }
-
+  /**
+   * Sets the first name of the user.
+   * @param firstName first name of the user.
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
-
+  /**
+   * Gets the last name of the user.
+   * @return last name.
+   */
   public String getLastName() {
     return lastName;
   }
-
+  /**
+   * Gets the first name of the user.
+   * @param lastName last name of the user.
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }

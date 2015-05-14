@@ -15,6 +15,7 @@ import play.mvc.Security;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.formdata.SignupFormData;
+import views.formdata.UrlFormData;
 import views.html.AddBookmarklet;
 import views.html.Bookmarklet;
 import views.html.EnterUrl;
@@ -24,6 +25,7 @@ import views.html.Login;
 import views.html.MyLinks;
 import views.html.Search;
 import views.html.Signup;
+import views.html.Welcome;
 import wordcloud.CollisionMode;
 import wordcloud.WordCloud;
 import wordcloud.WordFrequency;
@@ -74,10 +76,20 @@ public class Application extends Controller {
   public static Result faq() {
     return ok(Faq.render("Faq", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
+
   /**
-   * Returns the home page.
+   * Returns the welcome page.
    *
-   * @return The resulting home page.
+   * @return The resulting welcome page.
+   */
+  public static Result welcome() {
+    UserInfo user = UserInfo.find().select("firstName").where().eq("email", Secured.getUser(ctx())).findUnique();
+    return ok(Welcome.render("Welcome", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+  }
+  /**
+   * Returns the add bookmarklet page.
+   *
+   * @return The resulting add bookmarklet page.
    */
   public static Result addBookmarklet() {
     //session().clear();
@@ -124,7 +136,12 @@ public class Application extends Controller {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
-      return redirect(routes.Application.search());
+      if (checkNoOfEntries() == 0) {
+        return redirect(routes.Application.welcome());
+      }
+      else {
+        return redirect(routes.Application.search());
+      }
     }
   }
 
@@ -185,29 +202,52 @@ public class Application extends Controller {
   }
 
   /**
+   * Returns the enter url page.
+   * @return the url form data.
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result enterUrl() {
+    System.out.print("INSIDE ENTERURL");
+    UrlFormData data = new UrlFormData();
+    Form<UrlFormData> urlFormData = Form.form(UrlFormData.class).fill(data);
+    return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+  }
+
+  /**
    * Returns the page to enter url.
    * temporary until button is added.
    * @return the form data.
    */
   @Security.Authenticated(Secured.class)
-  public static Result enterUrl() {
-    String url = Form.form().bindFromRequest().get("url");
-    //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
-    if (url != null) {
-      System.out.println("url---" + url);
-      int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
-      System.out.println("rowcount== " + rowCount);
-      if (rowCount == 0) {
-        //call class that captures data and feeds it to db.
-        ProcessUrlData.processUrl(url);
-        return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
-      }
-      else {
-        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
-      }
+  public static Result postEnterUrl() {
+    System.out.print("INSIDE POST URL");
+    Form<UrlFormData> urlFormData = Form.form(UrlFormData.class).bindFromRequest();
+    if (urlFormData.hasErrors()) {
+      System.out.print("INSIDE URL HAS ERRORS");
+      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+          Secured.getUserInfo(ctx()), urlFormData));
     }
     else {
-      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      String url = Form.form().bindFromRequest().get("url");
+      //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
+      if (url != null) {
+        System.out.println("url---" + url);
+        int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
+        System.out.println("rowcount== " + rowCount);
+        if (rowCount == 0) {
+          //call class that captures data and feeds it to db.
+          ProcessUrlData.processUrl(url);
+          return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+       }
+        else {
+         return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+             Secured.getUserInfo(ctx()), urlFormData));
+        }
+      }
+      else {
+        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+            Secured.getUserInfo(ctx()), urlFormData));
+      }
     }
   }
 
@@ -222,15 +262,12 @@ public class Application extends Controller {
     System.out.println("EMAIL----" + Secured.getUser(ctx()));
 
     EntryDB.updateUserImage(Secured.getUserInfo(ctx()).getId(), Secured.getUser(ctx()));
-    //Check if any entry is present or not
-    int entryCount = Entry.find()
-        .select("entryId")
-        .where()
-        .eq("email", Secured.getUser(ctx()))
-        .findRowCount();
-    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    int entryCount = checkNoOfEntries();
     if (entryCount == 0) {
       noEntryForUser = true;
+    }
+    else {
+      noEntryForUser = false;
     }
     isSearchResult = false;
     List<UrlInfo> urlList = new ArrayList<>();
@@ -263,6 +300,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result searchResult() {
     isSearchResult = true;
+    noEntryForUser = false;
     List<UrlInfo> urlList = new ArrayList<>();
 
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
@@ -381,12 +419,7 @@ public class Application extends Controller {
     File image = new File("public/images/DefaultCloud.png");
     ArrayList<Long> entryIdList = new ArrayList<Long>();
     //Check if any entry is present or not
-    int entryCount = Entry.find()
-                    .select("entryId")
-                    .where()
-                    .eq("email", Secured.getUser(ctx()))
-                    .findRowCount();
-    System.out.println("ENTRY ROW COUNT---"+entryCount);
+    int entryCount = checkNoOfEntries();
     if (entryCount == 0) {
       return image;
     }
@@ -426,7 +459,7 @@ public class Application extends Controller {
         e.printStackTrace();
       }*/
         //wordCloud.setBackground(new CircleBackground(150));
-        wordCloud.setBackground(new RectangleBackground(400, 200));
+        wordCloud.setBackground(new RectangleBackground(800, 200));
         wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1),
             new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
         //wordCloud.setFontScalar(new LinearFontScalar(10, 40));
@@ -484,5 +517,19 @@ public class Application extends Controller {
     }
     return (cloud.allTags());
 
+  }
+
+  /**
+   * Checks if there are any entries for the logged in user.
+   * @return the entry count for the logged in user.
+   */
+  private static int checkNoOfEntries() {
+    //Check if any entry is present or not
+    int entryCount = Entry.find()
+        .select("entryId")
+        .where()
+        .eq("email", Secured.getUser(ctx()))
+        .findRowCount();
+    return entryCount;
   }
 }
