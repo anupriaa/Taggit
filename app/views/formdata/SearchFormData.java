@@ -1,6 +1,5 @@
 package views.formdata;
 
-import models.EntryDB;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;

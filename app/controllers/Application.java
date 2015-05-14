@@ -136,7 +136,7 @@ public class Application extends Controller {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
-      if(checkNoOfEntries() == 0) {
+      if (checkNoOfEntries() == 0) {
         return redirect(routes.Application.welcome());
       }
       else {
@@ -224,7 +224,8 @@ public class Application extends Controller {
     Form<UrlFormData> urlFormData = Form.form(UrlFormData.class).bindFromRequest();
     if (urlFormData.hasErrors()) {
       System.out.print("INSIDE URL HAS ERRORS");
-      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+          Secured.getUserInfo(ctx()), urlFormData));
     }
     else {
       String url = Form.form().bindFromRequest().get("url");
@@ -239,11 +240,13 @@ public class Application extends Controller {
           return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
        }
         else {
-         return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+         return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+             Secured.getUserInfo(ctx()), urlFormData));
         }
       }
       else {
-        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()),
+            Secured.getUserInfo(ctx()), urlFormData));
       }
     }
   }
@@ -515,6 +518,11 @@ public class Application extends Controller {
     return (cloud.allTags());
 
   }
+
+  /**
+   * Checks if there are any entries for the logged in user.
+   * @return the entry count for the logged in user.
+   */
   private static int checkNoOfEntries() {
     //Check if any entry is present or not
     int entryCount = Entry.find()
