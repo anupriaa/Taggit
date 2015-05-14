@@ -1,39 +1,42 @@
 @(page: String, isLoggedIn: Boolean, userInfo: UserInfo)
 
     @Main(page, isLoggedIn, userInfo) {
-        <div class="container-fluid">
+        <div class="container-fluid welcome">
             <div class="row">
-                <div class="col-md-12">
-                    @*<h1 class="homeText1">Taggit</h1>*@
-                    <img class="img-responsive homeimg" src="@routes.Assets.at("images/TagIt.png")">
-                    <p class="subText">Life is complicated, simplify it with Taggit.</p>
+                <div class="col-md-9 col-md-offset-3">
+                    <p>Hello @userInfo.getFirstName,</p>
                 </div>
                 <br/>
-                <div class="col-md-12">
-                    <h3 class="homeText ">
-                        <p>
-                            Taggit attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium.</p>
-                        <br/>
-                        <p>Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.</p></h3>
-
-                    <br/><br/>
+                <div class="col-md-9 col-md-offset-3">
+                    <p>Welcome to Taggit!</p>
                 </div>
-                @*<div class="col-md-3 col-md-offset-3 subText">
-                    <p class="subText1">Start organizing with Taggit.</p>
+                <div class="col-md-9 col-md-offset-3">
+                    <p>With Taggit you can save any website you like just with a click.<br/>
+                    Here are a few simple guidelines to use taggit effectively.</p>
                 </div>
-                <div class="col-md-3 subText">
-                    <a class="btn btn-default btn-lg" href="http://www.taggit.website/signup" role="button">
-                        Sign Up with email</a>
-                </div>
-                <div class="col-md-3 subText">
-                    <p class="subText1">It's totally free.</p>
-                </div>*@
                 <div class="col-md-8 col-md-offset-4">
-                    <p class="subText1">Start organizing with Taggit.  <a class="btn btn-default btn-lg" href="http://www.taggit.website/signup" role="button">Sign Up with email</a>  It's totally free. Just try it!</p>
+                    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    Add the <a class="link" href="http://localhost:9000/AddBookmarklet">bookmarklet</a> to your bookmarks.
                 </div>
-                <div class="col-md-7 col-md-offset-5">
-                    <p class="subText1">Already have an account? <a class="link" href="http://www.taggit.website/login">
-                        Log in now</a></p>
+                <div class="col-md-8 col-md-offset-4">
+                    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    Just click on the bookmarklet, When you want to save a website.
+                </div>
+                <div class="col-md-8 col-md-offset-4">
+                    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    And later <a class="link" href="http://localhost:9000/Search">search</a> your website using keywords displayed in your personal keyword cloud.
+                </div>
+                <div class="col-md-8 col-md-offset-4">
+                    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    Or you can take a look at all your links by going to <a class="link" href="http://localhost:9000/MyLinks">My Links</a>.
+                </div>
+                <div class="col-md-8 col-md-offset-4">
+                    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    Any other query, read our <a class="link" href="http://localhost:9000/Faq">faqs</a>.
+                </div>
+                <br/>
+                <div class="col-md-9 col-md-offset-3">
+                    <p>So without further delay, start using Taggit.</p>
                 </div>
             </div>
         </div>

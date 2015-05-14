@@ -24,6 +24,7 @@ import views.html.Login;
 import views.html.MyLinks;
 import views.html.Search;
 import views.html.Signup;
+import views.html.Welcome;
 import wordcloud.CollisionMode;
 import wordcloud.WordCloud;
 import wordcloud.WordFrequency;
@@ -81,7 +82,8 @@ public class Application extends Controller {
    * @return The resulting welcome page.
    */
   public static Result welcome() {
-    return ok(Faq.render("Welcome", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+    UserInfo user = UserInfo.find().select("firstName").where().eq("email", Secured.getUser(ctx())).findUnique();
+    return ok(Welcome.render("Welcome", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   /**
    * Returns the add bookmarklet page.

@@ -52,6 +52,9 @@ body {
     color: black;
     text-decoration: underline;
 }
+a:hover {
+    color: #75548C;
+}
 .table-bordered{
     border-color: #B1C0E6;
 
@@ -105,23 +108,12 @@ body {
 .faqbold{
     font-weight: bold;
 }
-.rotate{
-    /* Safari */
-    -webkit-transform: rotate(-90deg);
-
-    /* Firefox */
-    -moz-transform: rotate(-90deg);
-
-    /* IE */
-    -ms-transform: rotate(-90deg);
-
-    /* Opera */
-    -o-transform: rotate(-90deg);
-
-    /* Internet Explorer */
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-
-}
 .mainp {
     margin: 0 0 0 0;
+}
+.welcome {
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
 }
