@@ -3,7 +3,7 @@
 ## Overview
 Life is complicated, simplify it with [Taggit](https://www.taggit.website/).
 
-<img src="https://github.com/anupriaa/Taggit/blob/master/doc/images/Home.png">
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/Home.png">
 
 This webapp attempts to help you unclutter your mind and your life by letting you organize and catalog your day to day experiences in a searchable, sortable and manageable online medium. Whether it is a website you like or thoughts rambling through your head, once you link them with Taggit, it will automatically parse, tag and contextualized that snippet of your life for future retrieval whenever you feel an itch in your brain to reminisce about a thought you can't fully recall.
 
@@ -26,6 +26,20 @@ With Taggit, you can save all the websites you like only with a click. Just foll
 ##Some Screenshots
 Home Page
 <img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/Home.png">
+
+Sign Up page
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/Signup.png">
+
+Search Page
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/Search.png">
+
+##Some Mobile Screenshots
+Home Page
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/mhome.png">
+
+Login Page
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/mlogin.png">
+
 ##Current features
 This application intends to provide two ways of linking a resource to Taggit.
 <li>A secure connection.</li>
