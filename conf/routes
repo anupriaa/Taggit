@@ -9,6 +9,7 @@ GET         /Faq                   controllers.Application.faq()
 GET         /AddBookmarklet        controllers.Application.addBookmarklet()
 GET         /MyLinks               controllers.Application.myLinks()
 GET         /EnterUrl              controllers.Application.enterUrl()
+POST        /EnterUrl              controllers.Application.postEnterUrl()
 GET         /Search                controllers.Application.search()
 # To get the image from database
 GET         /getImage                  controllers.Application.getImage()

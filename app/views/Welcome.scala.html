@@ -3,12 +3,12 @@
     @Main(page, isLoggedIn, userInfo) {
         <div class="container-fluid welcome">
             <div class="row">
-                <div class="col-md-9 col-md-offset-3">
-                    <p>Hello @userInfo.getFirstName,</p>
+                <div class="col-md-12">
+                    <p align="center">Hello @userInfo.getFirstName,</p>
                 </div>
                 <br/>
-                <div class="col-md-9 col-md-offset-3">
-                    <p>Welcome to Taggit!</p>
+                <div class="col-md-12">
+                    <p align="center">Welcome to Taggit!</p>
                 </div>
                 <div class="col-md-9 col-md-offset-3">
                     <p>With Taggit you can save any website you like just with a click.<br/>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-8 col-md-offset-4">
                     <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-                    And later <a class="link" href="@routes.Application.search()">search</a> your website using keywords displayed in your personal keyword cloud.
+                    And later <a class="link" href="@routes.Application.search()">search</a> your added websites using keywords displayed in your personal keyword cloud.
                 </div>
                 <div class="col-md-8 col-md-offset-4">
                     <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-8 col-md-offset-4">
                     <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-                    Any other query, read our <a class="link" href="@routes.Application.faq()">faqs</a>.
+                    Any other question, read our <a class="link" href="@routes.Application.faq()">faqs</a>.
                 </div>
                 <br/>
                 <div class="col-md-9 col-md-offset-3">

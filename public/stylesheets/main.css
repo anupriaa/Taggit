@@ -48,11 +48,19 @@ body {
 .table-striped>tbody>tr:nth-child(odd)>th {
     background-color: #75548C;
 }
-.link{
+.link {
     color: black;
     text-decoration: underline;
 }
-a:hover {
+.resultLink {
+    color: black;
+    text-decoration: underline;
+    font-weight: normal;
+}
+a.resultLink:hover {
+    color: white;
+}
+a.link:hover {
     color: #75548C;
 }
 .table-bordered{
@@ -90,6 +98,8 @@ a:hover {
     font-family: 'IM Fell DW Pica', serif;
     font-size: 20px;
     color: black;
+    font-weight: normal;
+    align-content: center;
 }
 .bookmarkletLinkt{
     font-family: 'IM Fell DW Pica', serif;
@@ -112,8 +122,9 @@ a:hover {
     margin: 0 0 0 0;
 }
 .welcome {
-    font-family: 'IM Fell DW Pica', serif;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;;
     font-size: 30px;
     color: black;
-    font-weight: bold;
+    font-weight: normal;
 }
+

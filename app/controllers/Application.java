@@ -15,6 +15,7 @@ import play.mvc.Security;
 import views.formdata.LoginFormData;
 import views.formdata.SearchFormData;
 import views.formdata.SignupFormData;
+import views.formdata.UrlFormData;
 import views.html.AddBookmarklet;
 import views.html.Bookmarklet;
 import views.html.EnterUrl;
@@ -201,29 +202,49 @@ public class Application extends Controller {
   }
 
   /**
+   * Returns the enter url page.
+   * @return the url form data.
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result enterUrl() {
+    System.out.print("INSIDE ENTERURL");
+    UrlFormData data = new UrlFormData();
+    Form<UrlFormData> urlFormData = Form.form(UrlFormData.class).fill(data);
+    return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+  }
+
+  /**
    * Returns the page to enter url.
    * temporary until button is added.
    * @return the form data.
    */
   @Security.Authenticated(Secured.class)
-  public static Result enterUrl() {
-    String url = Form.form().bindFromRequest().get("url");
-    //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
-    if (url != null) {
-      System.out.println("url---" + url);
-      int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
-      System.out.println("rowcount== " + rowCount);
-      if (rowCount == 0) {
-        //call class that captures data and feeds it to db.
-        ProcessUrlData.processUrl(url);
-        return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
-      }
-      else {
-        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
-      }
+  public static Result postEnterUrl() {
+    System.out.print("INSIDE POST URL");
+    Form<UrlFormData> urlFormData = Form.form(UrlFormData.class).bindFromRequest();
+    if (urlFormData.hasErrors()) {
+      System.out.print("INSIDE URL HAS ERRORS");
+      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
     }
     else {
-      return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      String url = Form.form().bindFromRequest().get("url");
+      //Long userId = Long.parseLong(Form.form().bindFromRequest().get("UserId"));
+      if (url != null) {
+        System.out.println("url---" + url);
+        int rowCount = UrlInfo.find().select("url").where().ieq("url", url).findRowCount();
+        System.out.println("rowcount== " + rowCount);
+        if (rowCount == 0) {
+          //call class that captures data and feeds it to db.
+          ProcessUrlData.processUrl(url);
+          return ok(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+       }
+        else {
+         return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+        }
+      }
+      else {
+        return badRequest(EnterUrl.render("EnterUrl", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), urlFormData));
+      }
     }
   }
 
@@ -241,6 +262,9 @@ public class Application extends Controller {
     int entryCount = checkNoOfEntries();
     if (entryCount == 0) {
       noEntryForUser = true;
+    }
+    else {
+      noEntryForUser = false;
     }
     isSearchResult = false;
     List<UrlInfo> urlList = new ArrayList<>();
@@ -273,6 +297,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result searchResult() {
     isSearchResult = true;
+    noEntryForUser = false;
     List<UrlInfo> urlList = new ArrayList<>();
 
     Form<SearchFormData> searchFormData = Form.form(SearchFormData.class).bindFromRequest();
@@ -431,7 +456,7 @@ public class Application extends Controller {
         e.printStackTrace();
       }*/
         //wordCloud.setBackground(new CircleBackground(150));
-        wordCloud.setBackground(new RectangleBackground(400, 200));
+        wordCloud.setBackground(new RectangleBackground(800, 200));
         wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1),
             new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
         //wordCloud.setFontScalar(new LinearFontScalar(10, 40));
