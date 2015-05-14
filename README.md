@@ -23,6 +23,9 @@ With Taggit, you can save all the websites you like only with a click. Just foll
 - <a href="http://getbootstrap.com/2.3.2/">Twitter Bootstrap</a>
 - <a href="https://www.heroku.com/">Deployed on Heroku</a>
 
+##Some Screenshots
+Home Page
+<img src="https://rawgithub.com/anupriaa/Taggit/master/doc/images/Home.png">
 ##Current features
 This application intends to provide two ways of linking a resource to Taggit.
 <li>A secure connection.</li>
